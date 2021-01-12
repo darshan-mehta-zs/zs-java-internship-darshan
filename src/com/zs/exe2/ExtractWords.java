@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 public class ExtractWords {
 
-    String[] getWordsFromSentence(String sentence) {
+    public String[] getWordsFromSentence(String sentence) {
+
+        //return sentence.split(" ");
         String word = "";
         int index = 0;
         String words[] = new String[sentence.length()];
