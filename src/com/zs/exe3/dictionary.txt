@@ -1,0 +1,8 @@
+app=app
+apple=apples
+apples=apples
+apzle=apzle
+darshan=mehta
+gello=gello
+hello=world
+helloworld=helloworld

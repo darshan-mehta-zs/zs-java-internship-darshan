@@ -18,7 +18,7 @@ public class PalindromeNumber {
 
         if (number < 0)
             return false;
-        if(number == reverse(number))
+        if (number == reverse(number))
             return true;
         return false;
     }
