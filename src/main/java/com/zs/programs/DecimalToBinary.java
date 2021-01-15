@@ -1,14 +1,22 @@
-package com.zs.exe2;
+package main.java.com.zs.programs;
 
 import java.util.Scanner;
 
+/**
+ *
+ */
 public class DecimalToBinary {
 
+    /**
+     * @param decimal
+     * @return binary of the decimal
+     */
     String convertToBinary(int decimal) {
         return Integer.toBinaryString(decimal);
     }
 
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter decimal");
         int decimal = scanner.nextInt();
@@ -17,4 +25,5 @@ public class DecimalToBinary {
         System.out.println(binaryConverted);
 
     }
+
 }

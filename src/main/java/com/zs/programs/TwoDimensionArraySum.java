@@ -1,14 +1,17 @@
-package com.zs.exe2;
+package main.java.com.zs.programs;
 
 import java.util.Scanner;
 
+/**
+ * Program does the sum of two dimensional array
+ */
 public class TwoDimensionArraySum {
 
     int twoD[][];
 
-    TwoDimensionArraySum() {
-    }
-
+    /**
+     * Inputs the two dimensional array
+     */
     public void inputTwoD() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter number of rows of array");
@@ -24,6 +27,9 @@ public class TwoDimensionArraySum {
         }
     }
 
+    /**
+     * @return sum of the two dimensional array
+     */
     public int sumTwoD() {
         int sum = 0;
         for (int row[] : twoD)
@@ -32,11 +38,16 @@ public class TwoDimensionArraySum {
         return sum;
     }
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
+
         TwoDimensionArraySum twoDimensionArraySum = new TwoDimensionArraySum();
         twoDimensionArraySum.inputTwoD();
         int sum = twoDimensionArraySum.sumTwoD();
         System.out.println("Sum is " + sum);
+
     }
 
 }
