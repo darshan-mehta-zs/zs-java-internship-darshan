@@ -17,8 +17,8 @@ public class Dictionary {
 
 
     /**
-     * @param word
-     * @param key
+     * @param word accepts word as a String
+     * @param key  accepts key as a string
      * @return boolean value depending on whether arguments have common prefix
      */
     public static boolean startsWith(String word, String key) {
@@ -32,8 +32,8 @@ public class Dictionary {
     }
 
     /**
-     * @param dictionary
-     * @param key
+     * @param dictionary contains data
+     * @param key        to find all words in dictionary starting with key
      */
     public static void startingWith(TreeMap<String, String> dictionary, String key) {
         Map<String, String> similarWordsMap = dictionary.tailMap(key);
