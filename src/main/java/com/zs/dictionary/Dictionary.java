@@ -1,10 +1,18 @@
 package main.java.com.zs.dictionary;
 
-import java.io.*;
-import java.text.MessageFormat;
-import java.util.*;
-import java.util.logging.*;
-import java.util.logging.Formatter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileInputStream;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.Locale;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 /**
  * Dictionary to search word from dictionary, to add word to dictionary,
@@ -14,7 +22,6 @@ import java.util.logging.Formatter;
 public class Dictionary {
 
     private static Logger logger;
-
 
     /**
      * @param word accepts word as a String
@@ -74,8 +81,6 @@ public class Dictionary {
         }
         System.out.println();
     }
-
-    /*To write the dictionary to file when the program exits*/
 
     /**
      * writes dictionary to file
