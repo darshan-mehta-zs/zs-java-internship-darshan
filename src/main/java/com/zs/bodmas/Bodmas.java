@@ -26,6 +26,7 @@ public class Bodmas {
                 StringBuilder stringBuilder = new StringBuilder();
                 while (i < expression.length() && expression.charAt(i) >= '0' && expression.charAt(i) <= '9')
                     stringBuilder.append(expression.charAt(i++));
+                i--;
                 numbers.push(Integer.parseInt(stringBuilder.toString()));
             } else if (expression.charAt(i) == '(')
                 operands.push(expression.charAt(i));
