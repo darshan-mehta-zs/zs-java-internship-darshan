@@ -1,6 +1,8 @@
 package main.java.com.zs.programs;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -12,7 +14,7 @@ public class ExtractWords {
      * @param sentence
      * @return words from the given sentence
      */
-    public String[] getWordsFromSentence(String sentence) {
+    public ArrayList<String> getWordsFromSentence(String sentence) {
 
         String word = "";
         int index = 0;
@@ -25,7 +27,12 @@ public class ExtractWords {
                 word += sentence.charAt(i);
         }
         words[index++] = word;
-        return words;
+        ArrayList<String> wordsList = new ArrayList<>();
+        for (String wordIn : words) {
+            if (wordIn != null)
+                wordsList.add(wordIn);
+        }
+        return wordsList;
     }
 
     /**
@@ -37,8 +44,8 @@ public class ExtractWords {
         System.out.println("Enter String");
         String sentence = scanner.nextLine();
         ExtractWords extractWords = new ExtractWords();
-        String[] words = extractWords.getWordsFromSentence(sentence);
-        System.out.println(Arrays.deepToString(words));
+        List<String> words = extractWords.getWordsFromSentence(sentence);
+        System.out.println(words);
 
     }
 }
