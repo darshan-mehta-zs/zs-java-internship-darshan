@@ -7,7 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Product {
 
@@ -124,5 +127,36 @@ public class Product {
         statement.executeUpdate();
 
     }
+
+    public void readProductInSet() throws SQLException {
+        String query = "select * from product";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+        Set<Product> productsCatalog = new HashSet<>();
+        while (resultSet.next()) {
+            product_name = resultSet.getString("product_name");
+            quantity = resultSet.getInt("quantity");
+            price = resultSet.getFloat("price");
+            Product product = new Product();
+            product.price = price;
+            product.product_name = product_name;
+            product.quantity = quantity;
+            productsCatalog.add(product);
+        }
+        for (Product product : productsCatalog) {
+            System.out.println(product.product_name + " " + product.price + " " + product.quantity);
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "product_name='" + product_name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
+    }
+
 
 }

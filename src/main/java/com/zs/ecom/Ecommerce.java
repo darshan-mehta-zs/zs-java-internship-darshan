@@ -67,6 +67,7 @@ public class Ecommerce {
         System.out.println("3.Delete Product");
         System.out.println("4.Read Product");
         System.out.println("5.Add product in order");
+        System.out.println("6.Read Product in a set");
         int ch = scanner.nextInt();
         Product product = new Product();
         switch (ch) {
@@ -84,6 +85,9 @@ public class Ecommerce {
                 break;
             case 5:
                 product.addProductInOrder();
+                break;
+            case 6:
+                product.readProductInSet();
                 break;
         }
     }
