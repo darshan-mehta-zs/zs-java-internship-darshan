@@ -22,6 +22,11 @@ public class Bodmas {
 
             if (expression.charAt(i) == ' ')
                 continue;
+            char c = expression.charAt(i);
+            if (!(Character.isDigit(c) || c == '+' || c == '-' || c == '*' || c == '/')) {
+                System.out.println("Not possible");
+                return 0;
+            }
             if (expression.charAt(i) >= '0' && expression.charAt(i) <= '9') {
                 StringBuilder stringBuilder = new StringBuilder();
                 while (i < expression.length() && expression.charAt(i) >= '0' && expression.charAt(i) <= '9')
@@ -76,6 +81,10 @@ public class Bodmas {
             case '*':
                 return num1 * num2;
             case '/':
+                if (num2 == 0) {
+                    System.out.println("Cannot be divided by 0");
+                    return 0;
+                }
                 return num1 / num2;
             default:
                 return 0;

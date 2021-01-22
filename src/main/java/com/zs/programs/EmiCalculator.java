@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class EmiCalculator {
 
-    int principal;
+    float principal;
     float rate;
     int numberOfYears;
 
@@ -19,7 +19,7 @@ public class EmiCalculator {
     public void input() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter principal amount");
-        principal = scanner.nextInt();
+        principal = scanner.nextFloat();
         System.out.println("Enter rate of interest");
         rate = scanner.nextFloat();
         System.out.println("Enter number of years");

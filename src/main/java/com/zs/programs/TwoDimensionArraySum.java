@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class TwoDimensionArraySum {
 
-    int twoD[][];
+    public static int twoD[][];
 
     /**
      * Inputs the two dimensional array

@@ -7,8 +7,10 @@ import java.util.Scanner;
  */
 public class OneDimensionArraySum {
 
-    int oneD[];
+    public static int oneD[];
 
+    OneDimensionArraySum() {
+    }
 
     /**
      * inputs one dimensional array
