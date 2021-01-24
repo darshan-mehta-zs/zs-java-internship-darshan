@@ -47,7 +47,7 @@ public class ChessController {
         scanner.nextLine();
         chess.setResult(scanner.nextLine());
         chess.setTaskCompleted(true);
-        chessService.chessTick(connection, chess);
+        chessService.tick(connection, chess);
     }
 
     /**

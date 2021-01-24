@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Service for Chess hobby
  */
-public class ChessService {
+public class ChessService implements ServiceI {
 
     ChessDao chessDao;
 
@@ -28,8 +28,8 @@ public class ChessService {
      * @param connection accepts connection to database
      * @param Chess      accepts chess object to be stored to database
      */
-    public void chessTick(Connection connection, Chess Chess) {
-        chessDao.hobbyChessTick(connection, Chess);
+    public void tick(Connection connection, HobbyAttributes Chess) {
+        chessDao.hobbyChessTick(connection, (Chess) Chess);
     }
 
     /**

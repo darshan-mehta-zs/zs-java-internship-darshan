@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Service for Badminton hobby
  */
-public class BadmintonService {
+public class BadmintonService implements ServiceI {
 
     BadmintonDao badmintonDao;
 
@@ -28,8 +28,8 @@ public class BadmintonService {
      * @param connection accepts connection to database
      * @param badminton  accepts badminton object to be stored to database
      */
-    public void badmintonTick(Connection connection, Badminton badminton) {
-        badmintonDao.hobbyBadmintonTick(connection, badminton);
+    public void tick(Connection connection, HobbyAttributes badminton) {
+        badmintonDao.hobbyBadmintonTick(connection, (Badminton) badminton);
     }
 
 

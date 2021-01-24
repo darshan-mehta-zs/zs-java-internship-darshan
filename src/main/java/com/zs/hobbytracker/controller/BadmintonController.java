@@ -47,7 +47,7 @@ public class BadmintonController {
         scanner.nextLine();
         badminton.setResult(scanner.nextLine());
         badminton.setTaskCompleted(true);
-        badmintonService.badmintonTick(connection, badminton);
+        badmintonService.tick(connection, badminton);
     }
 
     /**
