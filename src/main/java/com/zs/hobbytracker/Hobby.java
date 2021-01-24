@@ -2,6 +2,7 @@ package main.java.com.zs.hobbytracker;
 
 import main.java.com.zs.hobbytracker.controller.BadmintonController;
 import main.java.com.zs.hobbytracker.controller.ChessController;
+import main.java.com.zs.hobbytracker.lru.LruCache;
 import main.java.com.zs.hobbytracker.models.Badminton;
 import main.java.com.zs.hobbytracker.models.Chess;
 import main.java.com.zs.hobbytracker.utils.DatabaseConnection;
@@ -27,6 +28,7 @@ import java.util.logging.Logger;
 public class Hobby {
 
     public static Logger logger;
+    public static LruCache lruCache;
 
     /**
      * Functionality for hobby
@@ -41,17 +43,22 @@ public class Hobby {
             BadmintonController badmintonController = new BadmintonController();
             ChessController chessController = new ChessController();
 
+            System.out.println("Enter capacity for lru cache");
+            int capacity = scanner.nextInt();
+            lruCache = new LruCache(capacity);
+
             int choice = 0;
             int userId = 0;
             Badminton badminton;
             Chess chess;
             while (choice != 9) {
-                System.out.println("1.longestStreak for a user : give result hobbywise");
-                System.out.println("2.latestStreak for a user : give result hobbywise");
-                System.out.println("3.lastTick for a user : give results hobbywise");
+                System.out.println("1.longestStreak for a user : give result hobby wise");
+                System.out.println("2.latestStreak for a user : give result hobby wise");
+                System.out.println("3.lastTick for a user : give results hobby wise");
                 System.out.println("4.details of a given date for a user : give results hobbywise");
                 System.out.println("5.Badminton Tick");
                 System.out.println("6.Chess Tick");
+                System.out.println("7.lru get");
                 choice = scanner.nextInt();
                 switch (choice) {
                     case 1:
@@ -95,6 +102,12 @@ public class Hobby {
                     case 6:
                         chessController.chessTickInput(connection);
                         break;
+                    case 7:
+                        System.out.println("Enter hobby name");
+                        scanner.nextLine();
+                        String key = scanner.nextLine();
+                        System.out.println(lruCache.get(key));
+                        break;
                 }
             }
             try {
@@ -124,7 +137,7 @@ public class Hobby {
      */
     public static Logger getLogger() {
         try {
-            LogManager.getLogManager().readConfiguration(new FileInputStream("src/main/java/com/zs/hobby/utils/logging.properties"));
+            LogManager.getLogManager().readConfiguration(new FileInputStream("src/main/java/com/zs/hobbytracker/utils/logging.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }

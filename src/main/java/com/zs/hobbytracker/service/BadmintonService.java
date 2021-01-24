@@ -66,7 +66,7 @@ public class BadmintonService {
      */
     public int getLatestStreak(Connection connection, int userId) {
         List<HobbyAttributes> hobbyAttributesList = badmintonDao.getBadmintonDataUserWise(connection, userId);
-        if (hobbyAttributesList.size() == 1 && hobbyAttributesList.get(0).isTaskCompleted())
+        if (hobbyAttributesList.size() == 1 && hobbyAttributesList.get(hobbyAttributesList.size() - 1).getDateLastPlayed().toString().equals(new Date(System.currentTimeMillis()).toString()))
             return 1;
         int count = 0;
         for (int i = 1; i < hobbyAttributesList.size(); i++) {

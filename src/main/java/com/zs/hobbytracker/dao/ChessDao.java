@@ -1,5 +1,6 @@
 package main.java.com.zs.hobbytracker.dao;
 
+import main.java.com.zs.hobbytracker.Hobby;
 import main.java.com.zs.hobbytracker.models.Chess;
 import main.java.com.zs.hobbytracker.models.HobbyAttributes;
 
@@ -35,6 +36,7 @@ public class ChessDao {
             statement.setBoolean(8, chess.isTaskCompleted());
             statement.executeUpdate();
             statement.close();
+            Hobby.lruCache.put("chess");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,7 +51,7 @@ public class ChessDao {
      * @return the chess hobby data as a List
      */
     public List<HobbyAttributes> getChessDataUserWise(Connection connection, int userId) {
-        String query = "select * from hobby_chess where user_id=? and hobby_id=2";
+        String query = "select * from hobby_chess where user_id=? and hobby_id=2 order by date_last_played";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, userId);

@@ -33,7 +33,7 @@ public class ChessController {
         Chess chess = new Chess();
         System.out.println("UserId");
         chess.setUserId(scanner.nextInt());
-        chess.setHobbyId(1);
+        chess.setHobbyId(2);
         System.out.println("Start Time");
         scanner.nextLine();
         chess.setStartTime(Time.valueOf(scanner.nextLine()));

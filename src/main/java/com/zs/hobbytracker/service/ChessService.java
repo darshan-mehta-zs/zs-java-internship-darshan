@@ -43,8 +43,10 @@ public class ChessService {
         List<HobbyAttributes> hobbyAttributesList = chessDao.getChessDataUserWise(connection, userId);
         int longestStreak = 0;
         int currentLongestStreak = 0;
-        for (HobbyAttributes hobbyAttributes : hobbyAttributesList) {
-            if (hobbyAttributes.isTaskCompleted()) {
+        for (int i = 1; i < hobbyAttributesList.size(); i++) {
+            if (hobbyAttributesList.get(i).getDateLastPlayed().getDate() - hobbyAttributesList.get(i - 1).getDateLastPlayed().getDate() == 1) {
+                if (currentLongestStreak == 0)
+                    currentLongestStreak++;
                 currentLongestStreak++;
             } else {
                 longestStreak = Math.max(currentLongestStreak, longestStreak);
@@ -63,7 +65,7 @@ public class ChessService {
      */
     public int getLatestStreak(Connection connection, int userId) {
         List<HobbyAttributes> hobbyAttributesList = chessDao.getChessDataUserWise(connection, userId);
-        if (hobbyAttributesList.size() == 1 && hobbyAttributesList.get(0).isTaskCompleted())
+        if (hobbyAttributesList.size() == 1 && hobbyAttributesList.get(hobbyAttributesList.size() - 1).getDateLastPlayed().toString().equals(new Date(System.currentTimeMillis()).toString()))
             return 1;
         int count = 0;
         for (int i = 1; i < hobbyAttributesList.size(); i++) {
