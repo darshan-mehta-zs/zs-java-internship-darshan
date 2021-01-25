@@ -1,14 +1,20 @@
-package com.zs.exe2;
+package main.java.com.zs.programs;
 
 import java.util.Scanner;
 
+/**
+ * Program to calculate sum of one dimensional array
+ */
 public class OneDimensionArraySum {
 
-    int oneD[];
+    public static int oneD[];
 
     OneDimensionArraySum() {
     }
 
+    /**
+     * inputs one dimensional array
+     */
     public void inputOneD() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter length of array");
@@ -20,6 +26,9 @@ public class OneDimensionArraySum {
         }
     }
 
+    /**
+     * @return sum of one dimensional array
+     */
     public int sumOneD() {
         int sum = 0;
         for (int value : oneD)
@@ -27,6 +36,9 @@ public class OneDimensionArraySum {
         return sum;
     }
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
 
         OneDimensionArraySum oneDimensionArraySum = new OneDimensionArraySum();

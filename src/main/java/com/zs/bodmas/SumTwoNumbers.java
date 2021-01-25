@@ -1,9 +1,12 @@
-package com.zs.exe1;
+package main.java.com.zs.bodmas;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Adds two numbers
+ */
 public class SumTwoNumbers {
 
     public static void main(String[] args) {
