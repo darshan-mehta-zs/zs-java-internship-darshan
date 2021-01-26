@@ -1,5 +1,7 @@
 package main.java.com.zs.hobbytracker.controller;
 
+import main.java.com.zs.hobbytracker.Hobby;
+import main.java.com.zs.hobbytracker.exception.InvalidInputException;
 import main.java.com.zs.hobbytracker.models.Chess;
 import main.java.com.zs.hobbytracker.service.ChessService;
 
@@ -29,24 +31,35 @@ public class ChessController {
      *
      * @param connection accepts connection to database as a parameter
      */
-    public void chessTickInput(Connection connection) {
+    public void chessTickInput(Connection connection) throws InvalidInputException {
         Chess chess = new Chess();
         System.out.println("UserId");
         chess.setUserId(scanner.nextInt());
         chess.setHobbyId(2);
-        System.out.println("Start Time");
-        scanner.nextLine();
-        chess.setStartTime(Time.valueOf(scanner.nextLine()));
-        System.out.println("End Time");
-        chess.setEndTime(Time.valueOf(scanner.nextLine()));
+        try {
+            System.out.println("Start Time");
+            scanner.nextLine();
+            chess.setStartTime(Time.valueOf(scanner.nextLine()));
+            System.out.println("End Time");
+            chess.setEndTime(Time.valueOf(scanner.nextLine()));
+        } catch (IllegalArgumentException e) {
+            Hobby.logger.warning("Enter time in 24 hr format hh:mm:ss");
+            return;
+        }
         System.out.println("Date Last Played");
-        chess.setDateLastPlayed(Date.valueOf(scanner.nextLine()));
+        try {
+            chess.setDateLastPlayed(Date.valueOf(scanner.nextLine()));
+        } catch (IllegalArgumentException e) {
+            Hobby.logger.warning("Enter date in yyyy-mm-dd format");
+            return;
+        }
         System.out.println("Number Of Moves");
         chess.setNumberOfMoves(scanner.nextInt());
         System.out.println("Result");
         scanner.nextLine();
         chess.setResult(scanner.nextLine());
         chess.setTaskCompleted(true);
+//        InputValidator.validate(chess);
         chessService.tick(connection, chess);
     }
 

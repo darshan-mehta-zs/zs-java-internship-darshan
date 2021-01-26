@@ -35,8 +35,8 @@ public class ChessDao {
             statement.setString(7, chess.getResult());
             statement.setBoolean(8, chess.isTaskCompleted());
             statement.executeUpdate();
+            Hobby.lruCache.put(chess.getUserId(), chess);
             statement.close();
-            Hobby.lruCache.put("chess");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,6 +77,9 @@ public class ChessDao {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.isBeforeFirst()) {
+                return null;
+            }
             Chess chess = new Chess();
             resultSet.next();
             chess.setHobbyId(resultSet.getInt("hobby_id"));

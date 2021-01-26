@@ -8,6 +8,10 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
+<<<<<<< HEAD
     <orderEntry type="library" name="postgresql-42.2.182" level="project" />
+=======
+    <orderEntry type="library" name="postgresql-42.2.181" level="project" />
+>>>>>>> 0748b2a57253eb56a9fdee5444cd3ec8c43f8ba4
   </component>
 </module>

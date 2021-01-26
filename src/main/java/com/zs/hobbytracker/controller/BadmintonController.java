@@ -1,5 +1,7 @@
 package main.java.com.zs.hobbytracker.controller;
 
+import main.java.com.zs.hobbytracker.Hobby;
+import main.java.com.zs.hobbytracker.exception.InvalidInputException;
 import main.java.com.zs.hobbytracker.models.Badminton;
 import main.java.com.zs.hobbytracker.service.BadmintonService;
 
@@ -29,18 +31,28 @@ public class BadmintonController {
      *
      * @param connection accepts connection to database as a parameter
      */
-    public void badmintonTickInput(Connection connection) {
+    public void badmintonTickInput(Connection connection) throws InvalidInputException {
         Badminton badminton = new Badminton();
         System.out.println("UserId");
         badminton.setUserId(scanner.nextInt());
         badminton.setHobbyId(1);
-        System.out.println("Start Time");
-        scanner.nextLine();
-        badminton.setStartTime(Time.valueOf(scanner.nextLine()));
-        System.out.println("End Time");
-        badminton.setEndTime(Time.valueOf(scanner.nextLine()));
+        try {
+            System.out.println("Start Time");
+            scanner.nextLine();
+            badminton.setStartTime(Time.valueOf(scanner.nextLine()));
+            System.out.println("End Time");
+            badminton.setEndTime(Time.valueOf(scanner.nextLine()));
+        } catch (IllegalArgumentException e) {
+            Hobby.logger.warning("Enter time in 24 hr format hh:mm:ss");
+            return;
+        }
         System.out.println("Date Last Played");
-        badminton.setDateLastPlayed(Date.valueOf(scanner.nextLine()));
+        try {
+            badminton.setDateLastPlayed(Date.valueOf(scanner.nextLine()));
+        } catch (IllegalArgumentException e) {
+            Hobby.logger.warning("Enter date in yyyy-mm-dd format");
+            return;
+        }
         System.out.println("Number Of Players");
         badminton.setNumberOfPlayers(scanner.nextInt());
         System.out.println("Result");

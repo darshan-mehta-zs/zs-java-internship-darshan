@@ -1,8 +1,10 @@
 package main.java.com.zs.hobbytracker.service;
 
 import main.java.com.zs.hobbytracker.dao.BadmintonDao;
+import main.java.com.zs.hobbytracker.exception.InvalidInputException;
 import main.java.com.zs.hobbytracker.models.Badminton;
 import main.java.com.zs.hobbytracker.models.HobbyAttributes;
+import main.java.com.zs.hobbytracker.validator.Validator;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -28,7 +30,14 @@ public class BadmintonService implements ServiceI {
      * @param connection accepts connection to database
      * @param badminton  accepts badminton object to be stored to database
      */
-    public void tick(Connection connection, HobbyAttributes badminton) {
+    /**
+     *
+     * @param connection
+     * @param badminton
+     * @throws InvalidInputException
+     */
+    public void tick(Connection connection, HobbyAttributes badminton) throws InvalidInputException {
+        Validator.validate(badminton);
         badmintonDao.hobbyBadmintonTick(connection, (Badminton) badminton);
     }
 

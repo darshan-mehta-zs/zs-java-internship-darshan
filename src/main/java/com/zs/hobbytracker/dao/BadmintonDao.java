@@ -35,8 +35,8 @@ public class BadmintonDao {
             statement.setString(7, badminton.getResult());
             statement.setBoolean(8, badminton.isTaskCompleted());
             statement.executeUpdate();
+            Hobby.lruCache.put(badminton.getUserId(), badminton);
             statement.close();
-            Hobby.lruCache.put("badminton");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,6 +76,9 @@ public class BadmintonDao {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.isBeforeFirst()) {
+                return null;
+            }
             Badminton badminton = new Badminton();
             resultSet.next();
             badminton.setHobbyId(resultSet.getInt("hobby_id"));

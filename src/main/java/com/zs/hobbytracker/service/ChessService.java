@@ -1,8 +1,10 @@
 package main.java.com.zs.hobbytracker.service;
 
 import main.java.com.zs.hobbytracker.dao.ChessDao;
+import main.java.com.zs.hobbytracker.exception.InvalidInputException;
 import main.java.com.zs.hobbytracker.models.Chess;
 import main.java.com.zs.hobbytracker.models.HobbyAttributes;
+import main.java.com.zs.hobbytracker.validator.Validator;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -26,10 +28,11 @@ public class ChessService implements ServiceI {
      * calls dao to store chess hobby data to database
      *
      * @param connection accepts connection to database
-     * @param Chess      accepts chess object to be stored to database
+     * @param chess      accepts chess object to be stored to database
      */
-    public void tick(Connection connection, HobbyAttributes Chess) {
-        chessDao.hobbyChessTick(connection, (Chess) Chess);
+    public void tick(Connection connection, HobbyAttributes chess) throws InvalidInputException {
+        Validator.validate(chess);
+        chessDao.hobbyChessTick(connection, (Chess) chess);
     }
 
     /**
