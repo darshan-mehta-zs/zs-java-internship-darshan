@@ -1,6 +1,6 @@
-package main.java.com.zs.hobbytracker.dao;
+package com.zs.hobbytracker.dao;
 
-import main.java.com.zs.hobbytracker.models.User;
+import com.zs.hobbytracker.models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +10,11 @@ public class UserDao {
 
     PreparedStatement statement;
 
+    /**
+     * @param connection accepts connection to the database
+     * @param user       accepts user object to add user to database
+     * @return 1 if user is added else 0
+     */
     public int addUser(Connection connection, User user) {
         String query = "insert into users(user_id,name) values(?,?)";
         try {

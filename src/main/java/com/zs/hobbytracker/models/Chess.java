@@ -1,4 +1,4 @@
-package main.java.com.zs.hobbytracker.models;
+package com.zs.hobbytracker.models;
 
 public class Chess extends HobbyAttributes {
 

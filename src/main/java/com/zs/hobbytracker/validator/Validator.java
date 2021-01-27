@@ -1,9 +1,9 @@
-package main.java.com.zs.hobbytracker.validator;
+package com.zs.hobbytracker.validator;
 
-import main.java.com.zs.hobbytracker.exception.InvalidInputException;
-import main.java.com.zs.hobbytracker.models.Badminton;
-import main.java.com.zs.hobbytracker.models.Chess;
-import main.java.com.zs.hobbytracker.models.HobbyAttributes;
+import com.zs.hobbytracker.exception.InvalidInputException;
+import com.zs.hobbytracker.models.Badminton;
+import com.zs.hobbytracker.models.Chess;
+import com.zs.hobbytracker.models.HobbyAttributes;
 
 import java.sql.Date;
 

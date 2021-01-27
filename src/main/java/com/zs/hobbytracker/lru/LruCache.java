@@ -1,7 +1,7 @@
-package main.java.com.zs.hobbytracker.lru;
+package com.zs.hobbytracker.lru;
 
-import main.java.com.zs.hobbytracker.Hobby;
-import main.java.com.zs.hobbytracker.models.HobbyAttributes;
+import com.zs.hobbytracker.Hobby;
+import com.zs.hobbytracker.models.HobbyAttributes;
 
 import java.util.*;
 

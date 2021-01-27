@@ -1,15 +1,21 @@
-package main.java.com.zs.hobbytracker.utils;
-
-import main.java.com.zs.hobbytracker.Hobby;
+package com.zs.hobbytracker.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.logging.Logger;
 
+/**
+ * Utility class for establishing connection to database
+ */
 public class DatabaseConnection {
+
+    /**
+     * @return connection established to the database
+     */
     public static Connection getConnection() {
+
         Connection connection = null;
-        Logger logger = Hobby.getLogger();
+        Logger logger = com.zs.hobbytracker.logger.Logger.getLogger();
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection("jdbc:postgresql://0.0.0.0:2006/hobby",
@@ -17,9 +23,9 @@ public class DatabaseConnection {
         } catch (Exception e) {
             logger.severe("Database not connected");
             e.printStackTrace();
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
         return connection;
+
     }
 }

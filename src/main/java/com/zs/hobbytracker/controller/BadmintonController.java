@@ -1,14 +1,15 @@
-package main.java.com.zs.hobbytracker.controller;
+package com.zs.hobbytracker.controller;
 
-import main.java.com.zs.hobbytracker.Hobby;
-import main.java.com.zs.hobbytracker.exception.InvalidInputException;
-import main.java.com.zs.hobbytracker.models.Badminton;
-import main.java.com.zs.hobbytracker.service.BadmintonService;
+import com.zs.hobbytracker.Hobby;
+import com.zs.hobbytracker.exception.InvalidInputException;
+import com.zs.hobbytracker.models.Badminton;
+import com.zs.hobbytracker.service.BadmintonService;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  * Controller for Badminton hobby
@@ -17,6 +18,7 @@ public class BadmintonController {
 
     private BadmintonService badmintonService;
     private Scanner scanner;
+    private Logger logger;
 
     /**
      * Constructor which injects service and scanner as dependency
@@ -24,38 +26,40 @@ public class BadmintonController {
     public BadmintonController() {
         badmintonService = new BadmintonService();
         scanner = new Scanner(System.in);
+        logger = com.zs.hobbytracker.logger.Logger.getLogger();
     }
 
     /**
      * Stores badminton hobby data in database
      *
      * @param connection accepts connection to database as a parameter
+     * @throws InvalidInputException if exception occurs while taking input
      */
     public void badmintonTickInput(Connection connection) throws InvalidInputException {
         Badminton badminton = new Badminton();
-        System.out.println("UserId");
+        logger.info("UserId");
         badminton.setUserId(scanner.nextInt());
         badminton.setHobbyId(1);
         try {
-            System.out.println("Start Time");
+            logger.info("Start Time");
             scanner.nextLine();
             badminton.setStartTime(Time.valueOf(scanner.nextLine()));
-            System.out.println("End Time");
+            logger.info("End Time");
             badminton.setEndTime(Time.valueOf(scanner.nextLine()));
         } catch (IllegalArgumentException e) {
             Hobby.logger.warning("Enter time in 24 hr format hh:mm:ss");
             return;
         }
-        System.out.println("Date Last Played");
+        logger.info("Date Last Played");
         try {
             badminton.setDateLastPlayed(Date.valueOf(scanner.nextLine()));
         } catch (IllegalArgumentException e) {
             Hobby.logger.warning("Enter date in yyyy-mm-dd format");
             return;
         }
-        System.out.println("Number Of Players");
+        logger.info("Number Of Players");
         badminton.setNumberOfPlayers(scanner.nextInt());
-        System.out.println("Result");
+        logger.info("Result");
         scanner.nextLine();
         badminton.setResult(scanner.nextLine());
         badminton.setTaskCompleted(true);

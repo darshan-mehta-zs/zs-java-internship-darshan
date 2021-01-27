@@ -1,8 +1,8 @@
-package main.java.com.zs.hobbytracker.dao;
+package com.zs.hobbytracker.dao;
 
-import main.java.com.zs.hobbytracker.Hobby;
-import main.java.com.zs.hobbytracker.models.Chess;
-import main.java.com.zs.hobbytracker.models.HobbyAttributes;
+import com.zs.hobbytracker.Hobby;
+import com.zs.hobbytracker.models.Chess;
+import com.zs.hobbytracker.models.HobbyAttributes;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -36,6 +36,7 @@ public class ChessDao {
             statement.setBoolean(8, chess.isTaskCompleted());
             statement.executeUpdate();
             Hobby.lruCache.put(chess.getUserId(), chess);
+            Hobby.cache.put(chess.getHobbyId(), chess);
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();

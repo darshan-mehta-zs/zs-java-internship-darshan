@@ -1,5 +1,12 @@
-package main.java.com.zs.hobbytracker.models;
+package com.zs.hobbytracker.models;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.util.Objects;
+
+/**
+ * Following class represents badminton hobby
+ */
 public class Badminton extends HobbyAttributes {
 
     /**
@@ -53,5 +60,26 @@ public class Badminton extends HobbyAttributes {
         this.result = result;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Badminton badminton = (Badminton) o;
+        return numberOfPlayers == badminton.numberOfPlayers && Objects.equals(result, badminton.result);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(numberOfPlayers, result);
+    }
+
+    public Badminton() {
+
+    }
+
+    public Badminton(int userId, int hobbyId, boolean isTaskCompleted, Time startTime, Time endTime, Date dateLastPlayed, String hobbyName, int numberOfPlayers, String result) {
+        super(userId, hobbyId, isTaskCompleted, startTime, endTime, dateLastPlayed, hobbyName);
+        this.numberOfPlayers = numberOfPlayers;
+        this.result = result;
+    }
 }

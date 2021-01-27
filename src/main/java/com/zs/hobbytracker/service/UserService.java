@@ -1,23 +1,26 @@
-package main.java.com.zs.hobbytracker.service;
+package com.zs.hobbytracker.service;
 
-import main.java.com.zs.hobbytracker.dao.UserDao;
-import main.java.com.zs.hobbytracker.models.User;
+import com.zs.hobbytracker.dao.UserDao;
+import com.zs.hobbytracker.models.User;
 
 import java.sql.Connection;
+import java.util.logging.Logger;
 
 public class UserService {
 
     UserDao userDao;
+    Logger logger;
 
     public UserService() {
         userDao = new UserDao();
+        logger = com.zs.hobbytracker.logger.Logger.getLogger();
     }
 
     public void addUser(Connection connection, User user) {
         if (userDao.addUser(connection, user) == 1) {
-            System.out.println("Added");
+            logger.info("Added");
         } else {
-            System.out.println("Not added");
+            logger.info("Not added");
         }
     }
 

@@ -1,4 +1,4 @@
-package main.java.com.zs.hobbytracker.models;
+package com.zs.hobbytracker.models;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -114,6 +114,20 @@ public abstract class HobbyAttributes {
                 ", dateLastPlayed=" + dateLastPlayed +
                 ", hobbyName='" + hobbyName + '\'' +
                 '}';
+    }
+
+    public HobbyAttributes(int userId, int hobbyId, boolean isTaskCompleted, Time startTime, Time endTime, Date dateLastPlayed, String hobbyName) {
+        this.userId = userId;
+        this.hobbyId = hobbyId;
+        this.isTaskCompleted = isTaskCompleted;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.dateLastPlayed = dateLastPlayed;
+        this.hobbyName = hobbyName;
+    }
+
+    public HobbyAttributes() {
+
     }
 
     /**
