@@ -1,7 +1,7 @@
-package main.java.com.zs.ecom.Models;
+package com.zs.ecom.Models;
 
 
-import main.java.com.zs.ecom.utils.DbConnection;
+import com.zs.ecom.utils.DbConnection;
 
 import java.sql.*;
 import java.time.LocalDate;

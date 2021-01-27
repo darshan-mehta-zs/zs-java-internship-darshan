@@ -1,10 +1,10 @@
-package main.java.com.zs.ecom;
+package com.zs.ecom;
 
 
-import main.java.com.zs.ecom.Models.Address;
-import main.java.com.zs.ecom.Models.Orders;
-import main.java.com.zs.ecom.Models.Product;
-import main.java.com.zs.ecom.Models.Users;
+import com.zs.ecom.Models.Address;
+import com.zs.ecom.Models.Orders;
+import com.zs.ecom.Models.Product;
+import com.zs.ecom.Models.Users;
 
 import java.sql.SQLException;
 import java.util.Scanner;

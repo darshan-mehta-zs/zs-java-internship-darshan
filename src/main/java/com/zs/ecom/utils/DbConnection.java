@@ -1,4 +1,4 @@
-package main.java.com.zs.ecom.utils;
+package com.zs.ecom.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

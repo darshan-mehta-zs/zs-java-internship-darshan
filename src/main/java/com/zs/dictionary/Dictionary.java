@@ -1,4 +1,4 @@
-package main.java.com.zs.dictionary;
+package com.zs.dictionary;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -1,4 +1,4 @@
-package main.java.com.zs.programs;
+package com.zs.programs;
 
 import java.util.Scanner;
 
