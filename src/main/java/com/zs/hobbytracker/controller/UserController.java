@@ -7,6 +7,9 @@ import java.sql.Connection;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+/**
+ * Controller for user
+ */
 public class UserController {
 
     Scanner scanner;
@@ -14,7 +17,7 @@ public class UserController {
     Logger logger;
 
     /**
-     * Constructor for initialising service and scanner
+     * Constructor for initialising service, logger and scanner
      */
     public UserController() {
         scanner = new Scanner(System.in);

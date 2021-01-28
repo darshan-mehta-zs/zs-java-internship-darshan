@@ -7,6 +7,7 @@ import com.zs.hobbytracker.service.BadmintonService;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -21,7 +22,7 @@ public class BadmintonController {
     private Logger logger;
 
     /**
-     * Constructor which injects service and scanner as dependency
+     * Constructor which injects service, logger and  scanner as dependency
      */
     public BadmintonController() {
         badmintonService = new BadmintonService();
@@ -34,29 +35,29 @@ public class BadmintonController {
      *
      * @param connection accepts connection to database as a parameter
      * @throws InvalidInputException if exception occurs while taking input
+     * @throws SQLException
      */
-    public void badmintonTickInput(Connection connection) throws InvalidInputException {
+    public void badmintonTickInput(Connection connection) throws InvalidInputException, SQLException {
         Badminton badminton = new Badminton();
         logger.info("UserId");
         badminton.setUserId(scanner.nextInt());
         badminton.setHobbyId(1);
-        try {
-            logger.info("Start Time");
-            scanner.nextLine();
-            badminton.setStartTime(Time.valueOf(scanner.nextLine()));
-            logger.info("End Time");
-            badminton.setEndTime(Time.valueOf(scanner.nextLine()));
-        } catch (IllegalArgumentException e) {
-            Hobby.logger.warning("Enter time in 24 hr format hh:mm:ss");
-            return;
-        }
+        logger.info("Start Time");
+        scanner.nextLine();
+        String time = scanner.nextLine();
+        if (time.charAt(2) != ':' && time.charAt(5) != ':')
+            throw new InvalidInputException("Enter time in hh:mm:ss format");
+        badminton.setStartTime(Time.valueOf(time));
+        logger.info("End Time");
+        time = scanner.nextLine();
+        if (time.charAt(2) != ':' && time.charAt(5) != ':')
+            throw new InvalidInputException("Enter time in hh:mm:ss format");
+        badminton.setEndTime(Time.valueOf(time));
         logger.info("Date Last Played");
-        try {
-            badminton.setDateLastPlayed(Date.valueOf(scanner.nextLine()));
-        } catch (IllegalArgumentException e) {
-            Hobby.logger.warning("Enter date in yyyy-mm-dd format");
-            return;
-        }
+        time = scanner.nextLine();
+        if (time.charAt(4) != '-' && time.charAt(7) != '-')
+            throw new InvalidInputException("Enter dte in yyyy-mm-dd format");
+        badminton.setDateLastPlayed(Date.valueOf(time));
         logger.info("Number Of Players");
         badminton.setNumberOfPlayers(scanner.nextInt());
         logger.info("Result");
@@ -72,10 +73,10 @@ public class BadmintonController {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of badminton in number of days
+     * @throws SQLException
      */
-    public int getLongestStreak(Connection connection, int userId) {
-        int badmintonLongestStreak = badmintonService.getLongestStreak(connection, userId);
-        return badmintonLongestStreak;
+    public int getLongestStreak(Connection connection, int userId) throws SQLException {
+        return badmintonService.getLongestStreak(connection, userId);
     }
 
     /**
@@ -84,10 +85,10 @@ public class BadmintonController {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of badminton in number of days
+     * @throws SQLException
      */
-    public int getLatestStreak(Connection connection, int userId) {
-        int badmintonLatestStreak = badmintonService.getLatestStreak(connection, userId);
-        return badmintonLatestStreak;
+    public int getLatestStreak(Connection connection, int userId) throws SQLException {
+        return badmintonService.getLatestStreak(connection, userId);
     }
 
     /**
@@ -98,6 +99,8 @@ public class BadmintonController {
      * @return Badminton object containing data
      */
     public Badminton lastTick(Connection connection, int userId) {
+        if (Hobby.cache.get(userId) != null)
+            return (Badminton) Hobby.cache.get(userId);
         return badmintonService.lastTick(connection, userId);
     }
 
@@ -108,8 +111,9 @@ public class BadmintonController {
      * @param userId     accepts id of user
      * @param date       accepts date
      * @return Badminton object containing data
+     * @throws SQLException
      */
-    public Badminton detailsForDate(Connection connection, int userId, Date date) {
+    public Badminton detailsForDate(Connection connection, int userId, Date date) throws SQLException {
         return badmintonService.detailsForDate(connection, userId, date);
     }
 

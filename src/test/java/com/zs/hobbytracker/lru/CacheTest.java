@@ -1,7 +1,6 @@
 package com.zs.hobbytracker.lru;
 
 
-import com.zs.hobbytracker.lru.Cache;
 import com.zs.hobbytracker.models.Badminton;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -9,7 +8,6 @@ import org.junit.Test;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -38,7 +36,11 @@ public class CacheTest {
 
     }
 
+
     @Test
+    /**
+     * Get when key is present
+     */
     public void getWhenKeyIsPresent() {
         cache.put(badminton1.getUserId(), badminton1);
         assertEquals(badminton1, cache.get(badminton1.getUserId()));
@@ -47,12 +49,18 @@ public class CacheTest {
     }
 
     @Test
+    /**
+     * Get when key is absent
+     */
     public void getWhenKeyIsAbsent() {
         assertNull(cache.get(badminton1.getUserId()));
         assertNull(cache.get(badminton2.getUserId()));
     }
 
     @Test
+    /**
+     * Put when key is present
+     */
     public void putWhenKeyIsPresent() {
         cache.put(badminton1.getUserId(), badminton1);
         badminton1.setNumberOfPlayers(99);
@@ -61,6 +69,9 @@ public class CacheTest {
     }
 
     @Test
+    /**
+     * Put when capacity is at max
+     */
     public void putWhenCapacityIsAtMax() {
         cache.put(badminton1.getUserId(), badminton1);
         cache.put(badminton2.getUserId(), badminton2);

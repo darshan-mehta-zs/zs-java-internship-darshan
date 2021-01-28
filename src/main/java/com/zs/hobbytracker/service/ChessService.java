@@ -8,12 +8,13 @@ import com.zs.hobbytracker.validator.Validator;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
  * Service for Chess hobby
  */
-public class ChessService implements ServiceI {
+public class ChessService implements HobbyService {
 
     ChessDao chessDao;
 
@@ -30,8 +31,9 @@ public class ChessService implements ServiceI {
      * @param connection accepts connection to database
      * @param chess      accepts chess object to be stored to database
      * @throws InvalidInputException in case if there is exception raises from input provided
+     * @throws SQLException
      */
-    public void tick(Connection connection, HobbyAttributes chess) throws InvalidInputException {
+    public void tick(Connection connection, HobbyAttributes chess) throws InvalidInputException, SQLException {
         Validator.validate(chess);
         chessDao.hobbyChessTick(connection, (Chess) chess);
     }
@@ -42,22 +44,11 @@ public class ChessService implements ServiceI {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of chess hobby in number of days
+     * @throws SQLException
      */
-    public int getLongestStreak(Connection connection, int userId) {
-        List<HobbyAttributes> hobbyAttributesList = chessDao.getChessDataUserWise(connection, userId);
-        int longestStreak = 0;
-        int currentLongestStreak = 0;
-        for (int i = 1; i < hobbyAttributesList.size(); i++) {
-            if (hobbyAttributesList.get(i).getDateLastPlayed().getDate() - hobbyAttributesList.get(i - 1).getDateLastPlayed().getDate() == 1) {
-                if (currentLongestStreak == 0)
-                    currentLongestStreak++;
-                currentLongestStreak++;
-            } else {
-                longestStreak = Math.max(currentLongestStreak, longestStreak);
-                currentLongestStreak = 0;
-            }
-        }
-        return Math.max(currentLongestStreak, longestStreak);
+    public int getLongestStreak(Connection connection, int userId) throws SQLException {
+        List<HobbyAttributes> hobbies = chessDao.getChessDataUserWise(connection, userId);
+        return HobbyAttributes.getLongestStreak(hobbies);
     }
 
     /**
@@ -66,27 +57,11 @@ public class ChessService implements ServiceI {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of chess in number of days
+     * @throws SQLException
      */
-    public int getLatestStreak(Connection connection, int userId) {
-        List<HobbyAttributes> hobbyAttributesList = chessDao.getChessDataUserWise(connection, userId);
-        if (hobbyAttributesList.size() == 1 && hobbyAttributesList.get(hobbyAttributesList.size() - 1).getDateLastPlayed().toString().equals(new Date(System.currentTimeMillis()).toString()))
-            return 1;
-        int count = 0;
-        for (int i = 1; i < hobbyAttributesList.size(); i++) {
-            if (hobbyAttributesList.get(i).getDateLastPlayed().getDate() - hobbyAttributesList.get(i - 1).getDateLastPlayed().getDate() == 1) {
-                if (count == 0)
-                    count++;
-                count++;
-            } else {
-                count = 0;
-            }
-        }
-        if (count == 0 && hobbyAttributesList.get(hobbyAttributesList.size() - 1).getDateLastPlayed().toString().equals(new Date(System.currentTimeMillis()).toString()))
-            count++;
-        if (!hobbyAttributesList.get(hobbyAttributesList.size() - 1).getDateLastPlayed().toString().equals(new Date(System.currentTimeMillis()).toString())) {
-            return 0;
-        }
-        return count;
+    public int getLatestStreak(Connection connection, int userId) throws SQLException {
+        List<HobbyAttributes> hobbies = chessDao.getChessDataUserWise(connection, userId);
+        return HobbyAttributes.getLatestStreak(hobbies);
     }
 
     /**
@@ -95,8 +70,9 @@ public class ChessService implements ServiceI {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return chess object containing data
+     * @throws SQLException
      */
-    public Chess lastTick(Connection connection, int userId) {
+    public Chess lastTick(Connection connection, int userId) throws SQLException {
         return chessDao.lastTick(connection, userId);
     }
 

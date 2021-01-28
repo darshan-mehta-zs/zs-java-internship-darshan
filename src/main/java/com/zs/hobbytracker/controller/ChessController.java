@@ -7,6 +7,7 @@ import com.zs.hobbytracker.service.ChessService;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -21,7 +22,7 @@ public class ChessController {
     Logger logger;
 
     /**
-     * Constructor which injects service and scanner as dependency
+     * Constructor which injects service, logger and scanner as dependency
      */
     public ChessController() {
         chessService = new ChessService();
@@ -30,40 +31,39 @@ public class ChessController {
     }
 
     /**
-     * Stores badminton hobby data in database
+     * Stores chess hobby data in database
      *
      * @param connection accepts connection to database as a parameter
      * @throws InvalidInputException if exception occurs while taking input
+     * @throws SQLException
      */
-    public void chessTickInput(Connection connection) throws InvalidInputException {
+    public void chessTickInput(Connection connection) throws InvalidInputException, SQLException {
         Chess chess = new Chess();
         logger.info("UserId");
         chess.setUserId(scanner.nextInt());
         chess.setHobbyId(2);
-        try {
-            logger.info("Start Time");
-            scanner.nextLine();
-            chess.setStartTime(Time.valueOf(scanner.nextLine()));
-            logger.info("End Time");
-            chess.setEndTime(Time.valueOf(scanner.nextLine()));
-        } catch (IllegalArgumentException e) {
-            Hobby.logger.warning("Enter time in 24 hr format hh:mm:ss");
-            return;
-        }
+        logger.info("Start Time");
+        scanner.nextLine();
+        String time = scanner.nextLine();
+        if (time.charAt(2) != ':' && time.charAt(5) != ':')
+            throw new InvalidInputException("Enter time in hh:mm:ss format");
+        chess.setStartTime(Time.valueOf(time));
+        logger.info("End Time");
+        time = scanner.nextLine();
+        if (time.charAt(2) != ':' && time.charAt(5) != ':')
+            throw new InvalidInputException("Enter time in hh:mm:ss format");
+        chess.setEndTime(Time.valueOf(time));
         logger.info("Date Last Played");
-        try {
-            chess.setDateLastPlayed(Date.valueOf(scanner.nextLine()));
-        } catch (IllegalArgumentException e) {
-            Hobby.logger.warning("Enter date in yyyy-mm-dd format");
-            return;
-        }
+        time = scanner.nextLine();
+        if (time.charAt(4) != '-' && time.charAt(7) != '-')
+            throw new InvalidInputException("Enter dte in yyyy-mm-dd format");
+        chess.setDateLastPlayed(Date.valueOf(scanner.nextLine()));
         logger.info("Number Of Moves");
         chess.setNumberOfMoves(scanner.nextInt());
         logger.info("Result");
         scanner.nextLine();
         chess.setResult(scanner.nextLine());
         chess.setTaskCompleted(true);
-//        InputValidator.validate(chess);
         chessService.tick(connection, chess);
     }
 
@@ -73,8 +73,9 @@ public class ChessController {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of chess in number of days
+     * @throws SQLException
      */
-    public int longestStreak(Connection connection, int userId) {
+    public int longestStreak(Connection connection, int userId) throws SQLException {
         int chessLongestStreak = chessService.getLongestStreak(connection, userId);
         return chessLongestStreak;
     }
@@ -85,8 +86,9 @@ public class ChessController {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of chess in number of days
+     * @throws SQLException
      */
-    public int getLatestStreak(Connection connection, int userId) {
+    public int getLatestStreak(Connection connection, int userId) throws SQLException {
         int chessLatestStreak = chessService.getLatestStreak(connection, userId);
         return chessLatestStreak;
     }
@@ -97,18 +99,21 @@ public class ChessController {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return Chess object containing data
+     * @throws SQLException
      */
-    public Chess lastTick(Connection connection, int userId) {
+    public Chess lastTick(Connection connection, int userId) throws SQLException {
+        if (Hobby.cache.get(userId) != null)
+            return (Chess) Hobby.cache.get(userId);
         return chessService.lastTick(connection, userId);
     }
 
     /**
-     * Fetch details of badminton hobby performed by user on given date
+     * Fetch details of chess hobby performed by user on given date
      *
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @param date       accepts date
-     * @return Badminton object containing data
+     * @return Chess object containing data
      */
     public Chess detailsForDate(Connection connection, int userId, Date date) {
         return chessService.detailsForDate(connection, userId, date);

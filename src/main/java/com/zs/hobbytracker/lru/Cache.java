@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
 /**
- * Does the caching
+ * This class can be used for caching and this class is implementation of LRU
  *
  * @param <K> key for the cache
  * @param <V> value for the cache
@@ -17,7 +17,7 @@ public class Cache<K, V> {
     private static Logger logger = com.zs.hobbytracker.logger.Logger.getLogger();
 
     /**
-     * Capacity for cache
+     * Capacity of cache
      */
     Integer capacity;
 

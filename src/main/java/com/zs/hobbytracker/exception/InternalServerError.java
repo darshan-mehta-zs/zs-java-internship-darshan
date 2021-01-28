@@ -1,9 +1,9 @@
 package com.zs.hobbytracker.exception;
 
 /**
- * InvalidInputException will be raised if the user input is invalid
+ * Internal Server Error which contains the error code and its message
  */
-public class InvalidInputException extends Exception {
+public class InternalServerError extends Exception {
 
     /**
      * Error code for exception
@@ -18,7 +18,7 @@ public class InvalidInputException extends Exception {
     /**
      * @param message accepts message for error
      */
-    public InvalidInputException(String message) {
+    public InternalServerError(String message) {
         super(message);
     }
 
@@ -26,7 +26,7 @@ public class InvalidInputException extends Exception {
      * @param errorCode    accepts code for error
      * @param errorMessage accepts error message
      */
-    public InvalidInputException(int errorCode, String errorMessage) {
+    public InternalServerError(int errorCode, String errorMessage) {
         this(errorCode + " " + errorMessage);
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;

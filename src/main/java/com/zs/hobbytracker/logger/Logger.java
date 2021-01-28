@@ -6,6 +6,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.LogManager;
 
+/**
+ * Logger for logging purpose
+ */
 public class Logger {
     /**
      * @return logger for the purpose of logging

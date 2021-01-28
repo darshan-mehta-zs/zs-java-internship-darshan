@@ -1,5 +1,8 @@
 package com.zs.hobbytracker.models;
 
+/**
+ * Following class represents Chess hobby
+ */
 public class Chess extends HobbyAttributes {
 
     /**

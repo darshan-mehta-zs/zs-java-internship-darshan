@@ -3,15 +3,16 @@ package com.zs.hobbytracker;
 import com.zs.hobbytracker.controller.BadmintonController;
 import com.zs.hobbytracker.controller.ChessController;
 import com.zs.hobbytracker.controller.UserController;
+import com.zs.hobbytracker.exception.InternalServerError;
 import com.zs.hobbytracker.exception.InvalidInputException;
 import com.zs.hobbytracker.lru.Cache;
-import com.zs.hobbytracker.lru.LruCache;
 import com.zs.hobbytracker.models.Badminton;
 import com.zs.hobbytracker.models.Chess;
 import com.zs.hobbytracker.utils.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -27,9 +28,47 @@ import java.util.logging.Logger;
 public class Hobby {
 
 
+    /**
+     * Logger for logging
+     */
     public static final Logger logger = com.zs.hobbytracker.logger.Logger.getLogger();
-    public static LruCache lruCache;
+
+    /**
+     * LRU cache implementation
+     */
     public static Cache cache;
+
+    /**
+     * Badminton Controller to perform operation on badminton hobby
+     */
+    static BadmintonController badmintonController;
+
+    /**
+     * Chess Controller to perform operation on badminton hobby
+     */
+    static ChessController chessController;
+
+    /**
+     * User Controller to perform operation on badminton hobby
+     */
+    static UserController userController;
+
+    /**
+     * To take user input
+     */
+    static Scanner scanner;
+
+    /**
+     * Initialises the controllers and scanner
+     */
+    public static void initialise() {
+        badmintonController = new BadmintonController();
+        chessController = new ChessController();
+        userController = new UserController();
+        scanner = new Scanner(System.in);
+        cache = new Cache(2);
+
+    }
 
     /**
      * Functionality for hobby
@@ -37,19 +76,13 @@ public class Hobby {
     public static void hobby() {
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) {
-            logger.severe("Connection not established");
-            logger.info("Not Connected");
+            try {
+                throw new InternalServerError(500, "Database Connection not established");
+            } catch (InternalServerError internalServerError) {
+                logger.severe("Connection not established");
+            }
         } else {
-            Scanner scanner = new Scanner(System.in);
-            BadmintonController badmintonController = new BadmintonController();
-            ChessController chessController = new ChessController();
-            UserController userController = new UserController();
-
-            logger.info("Enter capacity for lru cache");
-            int capacity = scanner.nextInt();
-            lruCache = new LruCache(capacity);
-            cache = new Cache(capacity);
-
+            initialise();
             int choice = 0;
             int userId = 0;
             Badminton badminton;
@@ -85,35 +118,12 @@ public class Hobby {
                         case 3:
                             logger.info("Enter User id");
                             userId = scanner.nextInt();
-                            Object obj = cache.get(userId);
-                            if (obj != null) {
-                                logger.info("Cached");
-                                logger.info(obj + "");
-                            } else {
-                                badminton = badmintonController.lastTick(connection, userId);
-                                if (badminton != null)
-                                    logger.info(badminton + "");
-                                chess = chessController.lastTick(connection, userId);
-                                if (chess != null)
-                                    logger.info(chess + "");
-                                cache.put(userId, badminton);
-                                cache.put(userId, chess);
-                            }
-//                            if (lruCache.get(userId) != null || cache.get(userId) != null) {
-//                                System.out.println("Cached");
-//                                System.out.println(lruCache.get(userId));
-//                            } else {
-//                                badminton = badmintonController.lastTick(connection, userId);
-//                                if (badminton != null)
-//                                    System.out.println(badminton);
-//                                chess = chessController.lastTick(connection, userId);
-//                                if (chess != null)
-//                                    System.out.println(chess);
-//                                lruCache.put(userId, badminton);
-//                                lruCache.put(userId, chess);
-//                                cache.put(userId, badminton);
-//                                cache.put(userId, chess);
-//                            }
+                            badminton = badmintonController.lastTick(connection, userId);
+                            logger.info(badminton + "");
+                            chess = chessController.lastTick(connection, userId);
+                            logger.info(chess + "");
+                            cache.put(userId, badminton);
+                            cache.put(userId, chess);
                             break;
                         case 4:
                             logger.info("Enter User id");
@@ -141,8 +151,6 @@ public class Hobby {
                         case 7:
                             userController.addUser(connection);
                             break;
-                        case 9:
-                            System.exit(0);
                         default:
                             logger.info("DEFAULT");
                             break;
@@ -153,7 +161,10 @@ public class Hobby {
                     logger.severe("Invalid Input");
                 } catch (IllegalArgumentException e) {
                     logger.severe("Please provides correct arguments");
+                } catch (SQLException e) {
+                    logger.severe(e.getMessage());
                 }
+
             }
         }
     }

@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * User dao to read or write from or to the database
+ */
 public class UserDao {
 
     PreparedStatement statement;

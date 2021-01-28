@@ -1,5 +1,8 @@
 package com.zs.hobbytracker.models;
 
+/**
+ * Following class represents User
+ */
 public class User {
     /**
      * Id of user

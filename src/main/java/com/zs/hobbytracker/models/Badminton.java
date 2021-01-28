@@ -73,10 +73,26 @@ public class Badminton extends HobbyAttributes {
         return Objects.hash(numberOfPlayers, result);
     }
 
+    /**
+     * No arguments constructor`
+     */
     public Badminton() {
 
     }
 
+    /**
+     * Constructor for initialising fields
+     *
+     * @param userId          accepts id of user
+     * @param hobbyId         accepts id of hobby
+     * @param isTaskCompleted accepts if task is completed
+     * @param startTime       accepts start time of hobby
+     * @param endTime         accepts end time of hobby
+     * @param dateLastPlayed  accepts when the hobby was last performed
+     * @param hobbyName       accepts name of hobby
+     * @param numberOfPlayers accepts number of players
+     * @param result          accepts result of hobby performed
+     */
     public Badminton(int userId, int hobbyId, boolean isTaskCompleted, Time startTime, Time endTime, Date dateLastPlayed, String hobbyName, int numberOfPlayers, String result) {
         super(userId, hobbyId, isTaskCompleted, startTime, endTime, dateLastPlayed, hobbyName);
         this.numberOfPlayers = numberOfPlayers;
