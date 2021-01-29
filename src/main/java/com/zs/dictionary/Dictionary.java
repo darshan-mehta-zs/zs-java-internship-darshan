@@ -203,7 +203,7 @@ public class Dictionary {
 
     public static void main(String[] args) throws IOException {
         try {
-            LogManager.getLogManager().readConfiguration(new FileInputStream("src/main/resources/logging.properties"));
+            LogManager.getLogManager().readConfiguration(new FileInputStream("src/main/resources/loggingHobby.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
