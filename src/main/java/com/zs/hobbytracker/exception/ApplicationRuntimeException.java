@@ -31,6 +31,7 @@ public class ApplicationRuntimeException extends Exception {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
     }
+
     public int getErrorCode() {
         return errorCode;
     }

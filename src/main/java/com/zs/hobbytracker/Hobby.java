@@ -157,8 +157,10 @@ public class Hobby {
                 }
             }
 
-        } catch (InvalidInputException | ApplicationRuntimeException e) {
-            logger.severe("\n{\n" + "errorCode : " + e.getMessage().substring(0, 3) + "," + "\nmessage : " + e.getMessage().substring(3) + "\n}");
+        } catch (InvalidInputException e) {
+            logger.severe("\n{\nerrorCode=" + e.getErrorCode() + ",\n" + "message=" + e.getErrorMessage() + "\n}");
+        } catch (ApplicationRuntimeException e) {
+            logger.severe("\n{\nerrorCode=" + e.getErrorCode() + ",\n" + "message=" + e.getErrorMessage() + "\n}");
         }
     }
 
