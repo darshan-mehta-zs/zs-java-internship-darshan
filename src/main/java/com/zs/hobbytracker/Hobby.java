@@ -10,7 +10,6 @@ import com.zs.hobbytracker.models.Badminton;
 import com.zs.hobbytracker.models.Chess;
 import com.zs.hobbytracker.utils.DatabaseConnection;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -159,11 +158,9 @@ public class Hobby {
             }
 
         } catch (InvalidInputException | ApplicationRuntimeException e) {
-            logger.info(e.getMessage());
+            logger.severe("\n{\n" + "errorCode : " + e.getMessage().substring(0, 3) + "," + "\nmessage : " + e.getMessage().substring(3) + "\n}");
         }
-
     }
-
 
     /**
      * Entry point for the program
