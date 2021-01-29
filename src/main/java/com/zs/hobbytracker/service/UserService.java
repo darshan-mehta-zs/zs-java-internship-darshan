@@ -1,6 +1,7 @@
 package com.zs.hobbytracker.service;
 
 import com.zs.hobbytracker.dao.UserDao;
+import com.zs.hobbytracker.exception.ApplicationRuntimeException;
 import com.zs.hobbytracker.models.User;
 
 import java.sql.Connection;
@@ -27,13 +28,11 @@ public class UserService {
      *
      * @param connection accepts connection to the database
      * @param user       accepts user data to be stored
+     * @throws ApplicationRuntimeException
      */
-    public void addUser(Connection connection, User user) {
-        if (userDao.addUser(connection, user) == 1) {
-            logger.info("Added");
-        } else {
-            logger.info("Not added");
-        }
+    public void addUser(Connection connection, User user) throws ApplicationRuntimeException {
+        userDao.addUser(connection, user);
+        logger.info("Added");
     }
 
 }

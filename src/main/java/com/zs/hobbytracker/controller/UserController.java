@@ -1,5 +1,6 @@
 package com.zs.hobbytracker.controller;
 
+import com.zs.hobbytracker.exception.ApplicationRuntimeException;
 import com.zs.hobbytracker.models.User;
 import com.zs.hobbytracker.service.UserService;
 
@@ -29,8 +30,9 @@ public class UserController {
      * To add user to the database
      *
      * @param connection accepts connection as a parameter
+     * @throws ApplicationRuntimeException
      */
-    public void addUser(Connection connection) {
+    public void addUser(Connection connection) throws ApplicationRuntimeException {
         User user = new User();
         logger.info("Enter id");
         user.setId(scanner.nextInt());

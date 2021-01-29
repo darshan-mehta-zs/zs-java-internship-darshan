@@ -1,5 +1,6 @@
 package com.zs.hobbytracker.dao;
 
+import com.zs.hobbytracker.exception.ApplicationRuntimeException;
 import com.zs.hobbytracker.models.User;
 
 import java.sql.Connection;
@@ -16,9 +17,10 @@ public class UserDao {
     /**
      * @param connection accepts connection to the database
      * @param user       accepts user object to add user to database
-     * @return 1 if user is added else 0
+     * @return if user is added to the database
+     * @throws ApplicationRuntimeException
      */
-    public int addUser(Connection connection, User user) {
+    public int addUser(Connection connection, User user) throws ApplicationRuntimeException {
         String query = "insert into users(user_id,name) values(?,?)";
         try {
             statement = connection.prepareStatement(query);
@@ -26,9 +28,7 @@ public class UserDao {
             statement.setString(2, user.getName());
             return statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ApplicationRuntimeException("User Not Added");
         }
-        return 0;
     }
-
 }

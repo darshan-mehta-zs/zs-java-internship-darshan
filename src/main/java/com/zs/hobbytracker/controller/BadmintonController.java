@@ -4,6 +4,7 @@ import com.zs.hobbytracker.Hobby;
 import com.zs.hobbytracker.exception.ApplicationRuntimeException;
 import com.zs.hobbytracker.exception.InvalidInputException;
 import com.zs.hobbytracker.models.Badminton;
+import com.zs.hobbytracker.models.HobbyAttributes;
 import com.zs.hobbytracker.service.BadmintonService;
 
 import java.sql.Connection;
