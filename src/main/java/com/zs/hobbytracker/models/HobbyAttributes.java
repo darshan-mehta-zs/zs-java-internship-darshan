@@ -244,7 +244,7 @@ public abstract class HobbyAttributes {
      * @return longest streak for hobby
      */
     public static int getLongestStreak(List<HobbyAttributes> hobbies) {
-        if (hobbies.size() == 0)
+        if (hobbies == null)
             return 0;
         int longestStreak = 0;
         int currentLongestStreak = 1;
@@ -266,7 +266,7 @@ public abstract class HobbyAttributes {
      * @return longest streak for hobby
      */
     public static int getLatestStreak(List<HobbyAttributes> hobbies) {
-        if (hobbies.size() == 0)
+        if (hobbies == null)
             return 0;
         int count = 1;
         for (int i = 1; i < hobbies.size(); i++) {

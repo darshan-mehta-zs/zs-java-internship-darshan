@@ -26,6 +26,13 @@ public class BadmintonService implements HobbyService {
     }
 
     /**
+     * @param badmintonDao sets the dao
+     */
+    public BadmintonService(BadmintonDao badmintonDao) {
+        this.badmintonDao = badmintonDao;
+    }
+
+    /**
      * calls dao to store badminton hobby data to database
      *
      * @param connection accepts connection to database
