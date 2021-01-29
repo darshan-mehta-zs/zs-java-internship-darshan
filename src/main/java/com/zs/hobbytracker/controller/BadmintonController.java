@@ -1,6 +1,7 @@
 package com.zs.hobbytracker.controller;
 
 import com.zs.hobbytracker.Hobby;
+import com.zs.hobbytracker.exception.ApplicationRuntimeException;
 import com.zs.hobbytracker.exception.InvalidInputException;
 import com.zs.hobbytracker.models.Badminton;
 import com.zs.hobbytracker.service.BadmintonService;
@@ -34,10 +35,10 @@ public class BadmintonController {
      * Stores badminton hobby data in database
      *
      * @param connection accepts connection to database as a parameter
-     * @throws InvalidInputException if exception occurs while taking input
-     * @throws SQLException
+     * @throws InvalidInputException       if exception occurs while taking input
+     * @throws ApplicationRuntimeException
      */
-    public void badmintonTickInput(Connection connection) throws InvalidInputException, SQLException {
+    public void badmintonTickInput(Connection connection) throws InvalidInputException, ApplicationRuntimeException {
         Badminton badminton = new Badminton();
         logger.info("UserId");
         badminton.setUserId(scanner.nextInt());
@@ -73,9 +74,9 @@ public class BadmintonController {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of badminton in number of days
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
-    public int getLongestStreak(Connection connection, int userId) throws SQLException {
+    public int getLongestStreak(Connection connection, int userId) throws ApplicationRuntimeException {
         return badmintonService.getLongestStreak(connection, userId);
     }
 
@@ -85,9 +86,9 @@ public class BadmintonController {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of badminton in number of days
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
-    public int getLatestStreak(Connection connection, int userId) throws SQLException {
+    public int getLatestStreak(Connection connection, int userId) throws ApplicationRuntimeException {
         return badmintonService.getLatestStreak(connection, userId);
     }
 
@@ -97,8 +98,9 @@ public class BadmintonController {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return Badminton object containing data
+     * @throws ApplicationRuntimeException
      */
-    public Badminton lastTick(Connection connection, int userId) {
+    public Badminton lastTick(Connection connection, int userId) throws ApplicationRuntimeException {
         if (Hobby.cache.get(userId) != null)
             return (Badminton) Hobby.cache.get(userId);
         return badmintonService.lastTick(connection, userId);
@@ -111,9 +113,9 @@ public class BadmintonController {
      * @param userId     accepts id of user
      * @param date       accepts date
      * @return Badminton object containing data
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
-    public Badminton detailsForDate(Connection connection, int userId, Date date) throws SQLException {
+    public Badminton detailsForDate(Connection connection, int userId, Date date) throws ApplicationRuntimeException {
         return badmintonService.detailsForDate(connection, userId, date);
     }
 

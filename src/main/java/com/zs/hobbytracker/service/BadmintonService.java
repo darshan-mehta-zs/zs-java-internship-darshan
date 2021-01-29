@@ -1,6 +1,7 @@
 package com.zs.hobbytracker.service;
 
 import com.zs.hobbytracker.dao.BadmintonDao;
+import com.zs.hobbytracker.exception.ApplicationRuntimeException;
 import com.zs.hobbytracker.exception.InvalidInputException;
 import com.zs.hobbytracker.models.Badminton;
 import com.zs.hobbytracker.models.HobbyAttributes;
@@ -37,10 +38,10 @@ public class BadmintonService implements HobbyService {
      *
      * @param connection accepts connection to database
      * @param badminton  accepts badminton object to be stored to database
-     * @throws InvalidInputException in case if there is exception raises from input provided
-     * @throws SQLException
+     * @throws InvalidInputException       in case if there is exception raises from input provided
+     * @throws ApplicationRuntimeException
      */
-    public void tick(Connection connection, HobbyAttributes badminton) throws InvalidInputException, SQLException {
+    public void tick(Connection connection, HobbyAttributes badminton) throws InvalidInputException, ApplicationRuntimeException {
         Validator.validate(badminton);
         badmintonDao.hobbyBadmintonTick(connection, (Badminton) badminton);
     }
@@ -52,9 +53,9 @@ public class BadmintonService implements HobbyService {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of badminton in number of days
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
-    public int getLongestStreak(Connection connection, int userId) throws SQLException {
+    public int getLongestStreak(Connection connection, int userId) throws ApplicationRuntimeException {
         List<HobbyAttributes> hobbies = badmintonDao.getBadmintonDataUserWise(connection, userId);
         return HobbyAttributes.getLongestStreak(hobbies);
     }
@@ -65,9 +66,9 @@ public class BadmintonService implements HobbyService {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of badminton in number of days
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
-    public int getLatestStreak(Connection connection, int userId) throws SQLException {
+    public int getLatestStreak(Connection connection, int userId) throws ApplicationRuntimeException {
         List<HobbyAttributes> hobbies = badmintonDao.getBadmintonDataUserWise(connection, userId);
         return HobbyAttributes.getLatestStreak(hobbies);
     }
@@ -78,8 +79,9 @@ public class BadmintonService implements HobbyService {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return Badminton object containing data
+     * @throws ApplicationRuntimeException
      */
-    public Badminton lastTick(Connection connection, int userId) {
+    public Badminton lastTick(Connection connection, int userId) throws ApplicationRuntimeException {
         return badmintonDao.lastTick(connection, userId);
     }
 
@@ -90,9 +92,9 @@ public class BadmintonService implements HobbyService {
      * @param userId     accepts id of user
      * @param date       accepts date
      * @return Badminton object containing data
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
-    public Badminton detailsForDate(Connection connection, int userId, Date date) throws SQLException {
+    public Badminton detailsForDate(Connection connection, int userId, Date date) throws ApplicationRuntimeException {
         return badmintonDao.detailsForDate(connection, userId, date);
     }
 }

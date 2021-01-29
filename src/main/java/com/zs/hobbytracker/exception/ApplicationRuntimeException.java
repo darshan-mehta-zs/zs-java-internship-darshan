@@ -3,7 +3,7 @@ package com.zs.hobbytracker.exception;
 /**
  * Internal Server Error which contains the error code and its message
  */
-public class InternalServerError extends Exception {
+public class ApplicationRuntimeException extends Exception {
 
     /**
      * Error code for exception
@@ -18,7 +18,7 @@ public class InternalServerError extends Exception {
     /**
      * @param message accepts message for error
      */
-    public InternalServerError(String message) {
+    public ApplicationRuntimeException(String message) {
         super(message);
     }
 
@@ -26,7 +26,7 @@ public class InternalServerError extends Exception {
      * @param errorCode    accepts code for error
      * @param errorMessage accepts error message
      */
-    public InternalServerError(int errorCode, String errorMessage) {
+    public ApplicationRuntimeException(int errorCode, String errorMessage) {
         this(errorCode + " " + errorMessage);
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;

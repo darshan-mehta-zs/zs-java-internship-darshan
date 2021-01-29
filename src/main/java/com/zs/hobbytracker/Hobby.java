@@ -3,7 +3,7 @@ package com.zs.hobbytracker;
 import com.zs.hobbytracker.controller.BadmintonController;
 import com.zs.hobbytracker.controller.ChessController;
 import com.zs.hobbytracker.controller.UserController;
-import com.zs.hobbytracker.exception.InternalServerError;
+import com.zs.hobbytracker.exception.ApplicationRuntimeException;
 import com.zs.hobbytracker.exception.InvalidInputException;
 import com.zs.hobbytracker.lru.Cache;
 import com.zs.hobbytracker.models.Badminton;
@@ -77,8 +77,8 @@ public class Hobby {
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) {
             try {
-                throw new InternalServerError(500, "Database Connection not established");
-            } catch (InternalServerError internalServerError) {
+                throw new ApplicationRuntimeException(500, "Database Connection not established");
+            } catch (ApplicationRuntimeException applicationRuntimeException) {
                 logger.severe("Connection not established");
             }
         } else {
@@ -130,13 +130,8 @@ public class Hobby {
                             userId = scanner.nextInt();
                             scanner.nextLine();
                             String date = "";
-                            try {
-                                logger.info("Enter date");
-                                date = scanner.nextLine();
-                            } catch (IllegalArgumentException e) {
-                                logger.warning("Enter date in yyyy-mm-dd format");
-                                break;
-                            }
+                            logger.info("Enter date");
+                            date = scanner.nextLine();
                             badminton = badmintonController.detailsForDate(connection, userId, Date.valueOf(date));
                             logger.info(badminton + "");
                             chess = chessController.detailsForDate(connection, userId, Date.valueOf(date));
@@ -157,11 +152,7 @@ public class Hobby {
                     }
                 } catch (InvalidInputException e) {
                     logger.info(e.getMessage());
-                } catch (InputMismatchException e) {
-                    logger.severe("Invalid Input");
-                } catch (IllegalArgumentException e) {
-                    logger.severe("Please provides correct arguments");
-                } catch (SQLException e) {
+                } catch (ApplicationRuntimeException e) {
                     logger.severe(e.getMessage());
                 }
 

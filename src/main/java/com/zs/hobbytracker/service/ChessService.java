@@ -1,6 +1,7 @@
 package com.zs.hobbytracker.service;
 
 import com.zs.hobbytracker.dao.ChessDao;
+import com.zs.hobbytracker.exception.ApplicationRuntimeException;
 import com.zs.hobbytracker.exception.InvalidInputException;
 import com.zs.hobbytracker.models.Chess;
 import com.zs.hobbytracker.models.HobbyAttributes;
@@ -30,10 +31,10 @@ public class ChessService implements HobbyService {
      *
      * @param connection accepts connection to database
      * @param chess      accepts chess object to be stored to database
-     * @throws InvalidInputException in case if there is exception raises from input provided
-     * @throws SQLException
+     * @throws InvalidInputException       in case if there is exception raises from input provided
+     * @throws ApplicationRuntimeException
      */
-    public void tick(Connection connection, HobbyAttributes chess) throws InvalidInputException, SQLException {
+    public void tick(Connection connection, HobbyAttributes chess) throws InvalidInputException, ApplicationRuntimeException {
         Validator.validate(chess);
         chessDao.hobbyChessTick(connection, (Chess) chess);
     }
@@ -44,9 +45,9 @@ public class ChessService implements HobbyService {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of chess hobby in number of days
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
-    public int getLongestStreak(Connection connection, int userId) throws SQLException {
+    public int getLongestStreak(Connection connection, int userId) throws ApplicationRuntimeException {
         List<HobbyAttributes> hobbies = chessDao.getChessDataUserWise(connection, userId);
         return HobbyAttributes.getLongestStreak(hobbies);
     }
@@ -57,9 +58,9 @@ public class ChessService implements HobbyService {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of chess in number of days
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
-    public int getLatestStreak(Connection connection, int userId) throws SQLException {
+    public int getLatestStreak(Connection connection, int userId) throws ApplicationRuntimeException {
         List<HobbyAttributes> hobbies = chessDao.getChessDataUserWise(connection, userId);
         return HobbyAttributes.getLatestStreak(hobbies);
     }
@@ -70,9 +71,9 @@ public class ChessService implements HobbyService {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return chess object containing data
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
-    public Chess lastTick(Connection connection, int userId) throws SQLException {
+    public Chess lastTick(Connection connection, int userId) throws ApplicationRuntimeException {
         return chessDao.lastTick(connection, userId);
     }
 
@@ -83,8 +84,9 @@ public class ChessService implements HobbyService {
      * @param userId     accepts id of user
      * @param date       accepts date
      * @return Chess object containing data
+     * @throws ApplicationRuntimeException
      */
-    public Chess detailsForDate(Connection connection, int userId, Date date) {
+    public Chess detailsForDate(Connection connection, int userId, Date date) throws ApplicationRuntimeException {
         return chessDao.detailsForDate(connection, userId, date);
     }
 }

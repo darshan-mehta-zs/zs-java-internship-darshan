@@ -1,6 +1,7 @@
 package com.zs.hobbytracker.controller;
 
 import com.zs.hobbytracker.Hobby;
+import com.zs.hobbytracker.exception.ApplicationRuntimeException;
 import com.zs.hobbytracker.exception.InvalidInputException;
 import com.zs.hobbytracker.models.Chess;
 import com.zs.hobbytracker.service.ChessService;
@@ -34,10 +35,10 @@ public class ChessController {
      * Stores chess hobby data in database
      *
      * @param connection accepts connection to database as a parameter
-     * @throws InvalidInputException if exception occurs while taking input
-     * @throws SQLException
+     * @throws InvalidInputException       if exception occurs while taking input
+     * @throws ApplicationRuntimeException
      */
-    public void chessTickInput(Connection connection) throws InvalidInputException, SQLException {
+    public void chessTickInput(Connection connection) throws InvalidInputException, ApplicationRuntimeException {
         Chess chess = new Chess();
         logger.info("UserId");
         chess.setUserId(scanner.nextInt());
@@ -73,9 +74,9 @@ public class ChessController {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of chess in number of days
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
-    public int longestStreak(Connection connection, int userId) throws SQLException {
+    public int longestStreak(Connection connection, int userId) throws ApplicationRuntimeException {
         int chessLongestStreak = chessService.getLongestStreak(connection, userId);
         return chessLongestStreak;
     }
@@ -86,9 +87,9 @@ public class ChessController {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of chess in number of days
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
-    public int getLatestStreak(Connection connection, int userId) throws SQLException {
+    public int getLatestStreak(Connection connection, int userId) throws ApplicationRuntimeException {
         int chessLatestStreak = chessService.getLatestStreak(connection, userId);
         return chessLatestStreak;
     }
@@ -99,9 +100,9 @@ public class ChessController {
      * @param connection accepts connection to database
      * @param userId     accepts id of user
      * @return Chess object containing data
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
-    public Chess lastTick(Connection connection, int userId) throws SQLException {
+    public Chess lastTick(Connection connection, int userId) throws ApplicationRuntimeException {
         if (Hobby.cache.get(userId) != null)
             return (Chess) Hobby.cache.get(userId);
         return chessService.lastTick(connection, userId);
@@ -114,8 +115,9 @@ public class ChessController {
      * @param userId     accepts id of user
      * @param date       accepts date
      * @return Chess object containing data
+     * @throws ApplicationRuntimeException
      */
-    public Chess detailsForDate(Connection connection, int userId, Date date) {
+    public Chess detailsForDate(Connection connection, int userId, Date date) throws ApplicationRuntimeException {
         return chessService.detailsForDate(connection, userId, date);
     }
 

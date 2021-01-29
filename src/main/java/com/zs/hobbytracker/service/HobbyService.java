@@ -1,5 +1,6 @@
 package com.zs.hobbytracker.service;
 
+import com.zs.hobbytracker.exception.ApplicationRuntimeException;
 import com.zs.hobbytracker.exception.InvalidInputException;
 import com.zs.hobbytracker.models.HobbyAttributes;
 
@@ -17,7 +18,7 @@ public interface HobbyService {
      * @param hobbyAttributes accepts hobby to be stored to database
      * @throws InvalidInputException in case exception raises as part of input
      */
-    public void tick(Connection connection, HobbyAttributes hobbyAttributes) throws InvalidInputException, SQLException;
+    public void tick(Connection connection, HobbyAttributes hobbyAttributes) throws InvalidInputException, SQLException, ApplicationRuntimeException;
 
     /**
      * Finds longest streak for hobby in number of days
@@ -26,7 +27,7 @@ public interface HobbyService {
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of hobby in number of days
      */
-    public int getLongestStreak(Connection connection, int userId) throws SQLException;
+    public int getLongestStreak(Connection connection, int userId) throws SQLException, ApplicationRuntimeException;
 
     /**
      * Finds latest streak for hobby in number of days
@@ -35,7 +36,7 @@ public interface HobbyService {
      * @param userId     accepts id of user
      * @return An Integer value for longest streak of hobby in number of days
      */
-    public int getLatestStreak(Connection connection, int userId) throws SQLException;
+    public int getLatestStreak(Connection connection, int userId) throws SQLException, ApplicationRuntimeException;
 
     /**
      * Fetch details of when was the last time user performed the hobby
@@ -44,7 +45,7 @@ public interface HobbyService {
      * @param userId     accepts id of user
      * @return HobbyAttributes or its child object containing data
      */
-    public HobbyAttributes lastTick(Connection connection, int userId) throws SQLException;
+    public HobbyAttributes lastTick(Connection connection, int userId) throws SQLException, ApplicationRuntimeException;
 
     /**
      * Fetch details of hobby performed by user on given date
@@ -54,6 +55,6 @@ public interface HobbyService {
      * @param date       accepts date
      * @return HobbyAttributes or its child object containing data
      */
-    public HobbyAttributes detailsForDate(Connection connection, int userId, Date date) throws SQLException;
+    public HobbyAttributes detailsForDate(Connection connection, int userId, Date date) throws SQLException, ApplicationRuntimeException;
 
 }

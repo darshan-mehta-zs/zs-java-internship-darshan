@@ -1,5 +1,6 @@
 package com.zs.hobbytracker.service;
 
+import com.zs.hobbytracker.exception.ApplicationRuntimeException;
 import com.zs.hobbytracker.models.Badminton;
 import com.zs.hobbytracker.models.Chess;
 import com.zs.hobbytracker.utils.DatabaseConnection;
@@ -35,7 +36,7 @@ public class ChessServiceTest {
      * @throws SQLException
      */
     @Test
-    public void getLongestStreakWhenUserIdIsPresent() throws SQLException {
+    public void getLongestStreakWhenUserIdIsPresent() throws ApplicationRuntimeException {
         int longestStreak = chessService.getLongestStreak(connection, 1);
         assertEquals(2, longestStreak);
     }
@@ -46,7 +47,7 @@ public class ChessServiceTest {
      * @throws SQLException
      */
     @Test
-    public void getLongestStreakWhenUserIdIsAbsent() throws SQLException {
+    public void getLongestStreakWhenUserIdIsAbsent() throws ApplicationRuntimeException {
         int longestStreak = chessService.getLongestStreak(connection, 5);
         assertEquals(0, longestStreak);
     }
@@ -57,7 +58,7 @@ public class ChessServiceTest {
      * @throws SQLException
      */
     @Test
-    public void getLatestStreakWhenUserIdIsPresent() throws SQLException {
+    public void getLatestStreakWhenUserIdIsPresent() throws ApplicationRuntimeException {
         int longestStreak = chessService.getLatestStreak(connection, 1);
         assertEquals(1, longestStreak);
     }
@@ -68,7 +69,7 @@ public class ChessServiceTest {
      * @throws SQLException
      */
     @Test
-    public void getLatestStreakWhenUserIdIsAbsent() throws SQLException {
+    public void getLatestStreakWhenUserIdIsAbsent() throws ApplicationRuntimeException {
         int longestStreak = chessService.getLatestStreak(connection, 5);
         assertEquals(0, longestStreak);
     }
@@ -77,7 +78,7 @@ public class ChessServiceTest {
      * Last tick for chess hobby when user id is present
      */
     @Test
-    public void lastTickWhenUserIdIsPresent() throws SQLException {
+    public void lastTickWhenUserIdIsPresent() throws ApplicationRuntimeException {
         Chess chess = chessService.lastTick(connection, 1);
         assertEquals(chess instanceof Chess, true);
     }
@@ -86,7 +87,7 @@ public class ChessServiceTest {
      * Last tick for chess hobby when user id is Absent
      */
     @Test
-    public void lastTickWhenUserIdIsAbsent() throws SQLException {
+    public void lastTickWhenUserIdIsAbsent() throws ApplicationRuntimeException {
         Chess chess = chessService.lastTick(connection, 10);
         assertEquals(null, chess);
     }
@@ -95,7 +96,7 @@ public class ChessServiceTest {
      * Last tick for badminton hobby when user id and date are present in database
      */
     @Test
-    public void detailsForDateWhenUserIdAndDateArePresent() throws SQLException {
+    public void detailsForDateWhenUserIdAndDateArePresent() throws ApplicationRuntimeException {
         Chess chess = chessService.detailsForDate(connection, 1, Date.valueOf("2021-01-26"));
         assertEquals(chess instanceof Chess, true);
     }
@@ -104,7 +105,7 @@ public class ChessServiceTest {
      * Last tick for chess hobby when user id or date is Absent in database
      */
     @Test
-    public void detailsForDateWhenUserIdOrDateAreAbsent() throws SQLException {
+    public void detailsForDateWhenUserIdOrDateAreAbsent() throws ApplicationRuntimeException {
         Chess chess = chessService.detailsForDate(connection, 10, Date.valueOf("2021-01-25"));
         assertEquals(null, chess);
     }
