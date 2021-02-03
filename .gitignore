@@ -1,3 +1,4 @@
+build/
 out/
 .idea/
 .idea_modules/
@@ -7,3 +8,7 @@ out/
 Demo.java
 java-intern.iml
 *.class
+gradlew
+gradlew.bat
+settings.gradle
+.gradle
