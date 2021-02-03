@@ -25,7 +25,7 @@ public class DecimalToBinary {
         return binaryString.toString();
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter decimal");
@@ -34,6 +34,6 @@ public class DecimalToBinary {
         String binaryConverted = decimalToBinary.convertToBinary(decimal);
         System.out.println(binaryConverted);
 
-    }
+    }*/
 
 }

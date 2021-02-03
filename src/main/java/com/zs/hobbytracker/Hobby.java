@@ -86,8 +86,11 @@ public class Hobby {
 
         try {
             Connection connection = DatabaseConnection.getConnection();
-            if (connection == null)
+            if (connection == null) {
+                System.out.println("CONN");
                 throw new ApplicationRuntimeException(500, "Database Connection not established");
+            }
+
             initialise();
             int choice = 0;
             int userId;
@@ -169,9 +172,10 @@ public class Hobby {
      *
      * @param args parameters as an array
      */
-    public static void main(String[] args) {
+/*
+     public static void main(String[] args) {
         hobby();
-    }
-
+     }
+*/
 
 }

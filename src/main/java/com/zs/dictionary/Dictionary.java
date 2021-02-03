@@ -201,7 +201,7 @@ public class Dictionary {
      * @param args
      */
 
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         try {
             LogManager.getLogManager().readConfiguration(new FileInputStream("src/main/resources/loggingHobby.properties"));
         } catch (IOException e) {
@@ -209,5 +209,5 @@ public class Dictionary {
         }
         logger = Logger.getLogger(Dictionary.class.getName());
         useDictionary();
-    }
+    }*/
 }

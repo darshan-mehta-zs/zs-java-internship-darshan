@@ -33,12 +33,12 @@ public class DifferentCharactersInString {
     /**
      * @param args
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         DifferentCharactersInString differentCharactersInString = new DifferentCharactersInString();
         differentCharactersInString.inputString();
         String uniqueCharacters = differentCharactersInString.differentCharacters();
         System.out.println(uniqueCharacters);
-    }
+    }*/
 
 }

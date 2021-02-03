@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.zs.hobbytracker.models.ChessTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2021-02-02T09:24:57" hostname="Raramuri" time="0.064">
+  <properties/>
+  <testcase name="parameterisedConstructor" classname="com.zs.hobbytracker.models.ChessTest" time="0.0"/>
+  <testcase name="settersOfParent" classname="com.zs.hobbytracker.models.ChessTest" time="0.0"/>
+  <testcase name="equalsTest" classname="com.zs.hobbytracker.models.ChessTest" time="0.0"/>
+  <testcase name="toStringTest" classname="com.zs.hobbytracker.models.ChessTest" time="0.062"/>
+  <testcase name="getNumberOfPlayers" classname="com.zs.hobbytracker.models.ChessTest" time="0.0"/>
+  <testcase name="getResult" classname="com.zs.hobbytracker.models.ChessTest" time="0.001"/>
+  <testcase name="hashCodeTest" classname="com.zs.hobbytracker.models.ChessTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

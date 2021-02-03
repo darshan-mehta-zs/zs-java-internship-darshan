@@ -45,13 +45,13 @@ public class EmiCalculator {
     /**
      * @param args
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         EmiCalculator emiCalculator = new EmiCalculator();
         emiCalculator.input();
         double emi = emiCalculator.calculateEmi();
         System.out.println("EMI amount is " + emi);
 
-    }
+    }*/
 
 }

@@ -29,7 +29,7 @@ public class PrimeNumbers1ToN {
     /**
      * @param args
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter number");
@@ -37,5 +37,5 @@ public class PrimeNumbers1ToN {
         PrimeNumbers1ToN primeNumbers1ToN = new PrimeNumbers1ToN();
         primeNumbers1ToN.printPrimes(number);
 
-    }
+    }*/
 }

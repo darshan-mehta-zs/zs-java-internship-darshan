@@ -6,6 +6,7 @@ import com.zs.hobbytracker.exception.InvalidInputException;
 import com.zs.hobbytracker.models.Badminton;
 import com.zs.hobbytracker.models.HobbyAttributes;
 import com.zs.hobbytracker.validator.Validator;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * Service for Badminton hobby
  */
+@Service
 public class BadmintonService implements HobbyService {
 
     BadmintonDao badmintonDao;

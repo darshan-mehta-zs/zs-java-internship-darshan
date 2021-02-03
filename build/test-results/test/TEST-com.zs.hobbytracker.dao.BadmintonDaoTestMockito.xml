@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.zs.hobbytracker.dao.BadmintonDaoTestMockito" tests="3" skipped="2" failures="0" errors="0" timestamp="2021-02-02T09:24:57" hostname="Raramuri" time="0.174">
+  <properties/>
+  <testcase name="test" classname="com.zs.hobbytracker.dao.BadmintonDaoTestMockito" time="0.174"/>
+  <testcase name="getBadmintonDataUserWise" classname="com.zs.hobbytracker.dao.BadmintonDaoTestMockito" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="hobbyBadmintonTick" classname="com.zs.hobbytracker.dao.BadmintonDaoTestMockito" time="0.0">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

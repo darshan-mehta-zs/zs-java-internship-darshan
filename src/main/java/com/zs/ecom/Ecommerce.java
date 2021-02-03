@@ -160,11 +160,11 @@ public class Ecommerce {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    /*public static void main(String[] args) throws Exception {
 
         System.out.println("HELLO WORLD");
         ecommerce();
 
-    }
+    }*/
 
 }

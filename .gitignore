@@ -6,3 +6,4 @@ out/
 *.iws
 Demo.java
 java-intern.iml
+*.class

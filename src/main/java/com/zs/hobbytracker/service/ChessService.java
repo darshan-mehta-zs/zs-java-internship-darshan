@@ -6,6 +6,7 @@ import com.zs.hobbytracker.exception.InvalidInputException;
 import com.zs.hobbytracker.models.Chess;
 import com.zs.hobbytracker.models.HobbyAttributes;
 import com.zs.hobbytracker.validator.Validator;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * Service for Chess hobby
  */
+@Service
 public class ChessService implements HobbyService {
 
     ChessDao chessDao;
@@ -24,6 +26,10 @@ public class ChessService implements HobbyService {
      */
     public ChessService() {
         chessDao = new ChessDao();
+    }
+
+    public ChessService(ChessDao chessDao) {
+        this.chessDao = chessDao;
     }
 
     /**

@@ -1,5 +1,11 @@
 package com.zs.hobbytracker.models;
 
+import com.zs.hobbytracker.annotation.MinNumberOfPlayers;
+import com.zs.hobbytracker.annotation.Result;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Objects;
@@ -12,10 +18,13 @@ public class Badminton extends HobbyAttributes {
     /**
      * number of players a user is playing with
      */
+    @MinNumberOfPlayers
     private int numberOfPlayers;
+
     /**
      * result of badminton match
      */
+    @Result
     private String result;
 
     /**
@@ -45,7 +54,7 @@ public class Badminton extends HobbyAttributes {
     /**
      * Getter method to get the result of match
      *
-     * @return result of match i.e. won/loss/draw
+     * @return result of match i.e. win/loss/draw
      */
     public String getResult() {
         return result;

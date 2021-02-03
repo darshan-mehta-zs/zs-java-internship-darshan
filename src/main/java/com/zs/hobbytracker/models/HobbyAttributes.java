@@ -1,5 +1,6 @@
 package com.zs.hobbytracker.models;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ public abstract class HobbyAttributes {
     /**
      * Id of user
      */
+    @NotNull
     private int userId;
 
     /**
@@ -263,7 +265,7 @@ public abstract class HobbyAttributes {
      * Calculate latest streak for hobby
      *
      * @param hobbies list of hobbies
-     * @return longest streak for hobby
+     * @return latest streak for hobby
      */
     public static int getLatestStreak(List<HobbyAttributes> hobbies) {
         if (hobbies == null)

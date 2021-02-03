@@ -3,6 +3,7 @@ package com.zs.hobbytracker.service;
 import com.zs.hobbytracker.dao.UserDao;
 import com.zs.hobbytracker.exception.ApplicationRuntimeException;
 import com.zs.hobbytracker.models.User;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.logging.Logger;
@@ -10,6 +11,7 @@ import java.util.logging.Logger;
 /**
  * Service class for User
  */
+@Service
 public class UserService {
 
     UserDao userDao;
@@ -33,6 +35,11 @@ public class UserService {
     public void addUser(Connection connection, User user) throws ApplicationRuntimeException {
         userDao.addUser(connection, user);
         logger.info("Added");
+    }
+
+    public UserService(UserDao userDao, Logger logger) {
+        this.userDao = userDao;
+        this.logger = logger;
     }
 
 }

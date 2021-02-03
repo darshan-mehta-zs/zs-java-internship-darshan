@@ -51,7 +51,7 @@ public class Validator {
      */
     public static boolean isResultValid(String actualResult) {
         for (result r : result.values()) {
-            if (r.equals(actualResult.toUpperCase())) {
+            if (actualResult.equalsIgnoreCase(r.toString())) {
                 return true;
             }
         }

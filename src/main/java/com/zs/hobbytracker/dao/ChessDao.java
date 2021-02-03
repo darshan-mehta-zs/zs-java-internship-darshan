@@ -23,8 +23,6 @@ public class ChessDao {
     public void hobbyChessTick(Connection connection, Chess chess) throws ApplicationRuntimeException {
         String query = "insert into hobby_Chess(hobby_id,user_id,start_time,end_time,date_last_played,number_of_moves,result,is_task_completed) values(?,?,?,?,?,?,?,?)";
         try {
-
-
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, chess.getHobbyId());
             statement.setInt(2, chess.getUserId());
@@ -35,7 +33,7 @@ public class ChessDao {
             statement.setString(7, chess.getResult());
             statement.setBoolean(8, chess.isTaskCompleted());
             statement.executeUpdate();
-            Hobby.cache.put(chess.getHobbyId(), chess);
+//            Hobby.cache.put(chess.getHobbyId(), chess);
             statement.close();
         } catch (SQLException e) {
             throw new ApplicationRuntimeException(500, "Sql Timeout or Sql Exception");

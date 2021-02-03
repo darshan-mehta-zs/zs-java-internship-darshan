@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.zs.hobbytracker.lru.CacheTest" tests="6" skipped="2" failures="0" errors="0" timestamp="2021-02-02T09:24:57" hostname="Raramuri" time="0.035">
+  <properties/>
+  <testcase name="getWhenKeyIsAbsent" classname="com.zs.hobbytracker.lru.CacheTest" time="0.022"/>
+  <testcase name="putWhenKeyIsPresent" classname="com.zs.hobbytracker.lru.CacheTest" time="0.004"/>
+  <testcase name="get" classname="com.zs.hobbytracker.lru.CacheTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="genericTest" classname="com.zs.hobbytracker.lru.CacheTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="getWhenKeyIsPresent" classname="com.zs.hobbytracker.lru.CacheTest" time="0.005"/>
+  <testcase name="putWhenCapacityIsAtMax" classname="com.zs.hobbytracker.lru.CacheTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Feb 02, 2021 2:54:57 PM com.zs.hobbytracker.lru.Cache get
+INFO: Key not found or cache miss
+Feb 02, 2021 2:54:57 PM com.zs.hobbytracker.lru.Cache get
+INFO: Key not found or cache miss
+Feb 02, 2021 2:54:57 PM com.zs.hobbytracker.lru.Cache put
+INFO: key value added to cache
+Feb 02, 2021 2:54:57 PM com.zs.hobbytracker.lru.Cache put
+INFO: key value added to cache
+Feb 02, 2021 2:54:57 PM com.zs.hobbytracker.lru.Cache get
+INFO: Key found or cache hit
+Feb 02, 2021 2:54:57 PM com.zs.hobbytracker.lru.Cache put
+INFO: key value added to cache
+Feb 02, 2021 2:54:57 PM com.zs.hobbytracker.lru.Cache get
+INFO: Key found or cache hit
+Feb 02, 2021 2:54:57 PM com.zs.hobbytracker.lru.Cache put
+INFO: key value added to cache
+Feb 02, 2021 2:54:57 PM com.zs.hobbytracker.lru.Cache get
+INFO: Key found or cache hit
+Feb 02, 2021 2:54:57 PM com.zs.hobbytracker.lru.Cache put
+INFO: key value added to cache
+Feb 02, 2021 2:54:57 PM com.zs.hobbytracker.lru.Cache put
+INFO: key value added to cache
+Feb 02, 2021 2:54:57 PM com.zs.hobbytracker.lru.Cache put
+INFO: key value added to cache
+Feb 02, 2021 2:54:57 PM com.zs.hobbytracker.lru.Cache get
+INFO: Key not found or cache miss
+]]></system-err>
+</testsuite>

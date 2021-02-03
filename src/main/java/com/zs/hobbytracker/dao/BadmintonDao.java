@@ -33,7 +33,7 @@ public class BadmintonDao {
             statement.setString(7, badminton.getResult());
             statement.setBoolean(8, badminton.isTaskCompleted());
             statement.executeUpdate();
-            Hobby.cache.put(badminton.getUserId(), badminton);
+//            Hobby.cache.put(badminton.getUserId(), badminton);
             statement.close();
         } catch (SQLException e) {
             throw new ApplicationRuntimeException(500, "Sql Timeout or Sql Exception");
@@ -55,7 +55,7 @@ public class BadmintonDao {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
-            hobbyAttributesList = new Badminton().convertToList(resultSet);
+            hobbyAttributesList = HobbyAttributes.convertToList(resultSet);
         } catch (SQLException e) {
             throw new ApplicationRuntimeException(500, "Sql Timeout or Sql Exception");
         }
