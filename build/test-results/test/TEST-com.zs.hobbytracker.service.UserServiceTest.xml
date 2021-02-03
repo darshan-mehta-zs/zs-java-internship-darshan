@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.zs.hobbytracker.service.UserServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-02-02T09:24:57" hostname="Raramuri" time="0.136">
-  <properties/>
-  <testcase name="addUserTest" classname="com.zs.hobbytracker.service.UserServiceTest" time="0.136"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

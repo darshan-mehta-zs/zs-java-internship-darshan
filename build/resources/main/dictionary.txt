@@ -1,7 +1,0 @@
-app=app
-apple=apples
-apples=apples
-apzle=apzle
-hello=world
-helloworld=helloworld
-java=compiled and interpreted
