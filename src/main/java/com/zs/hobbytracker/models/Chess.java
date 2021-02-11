@@ -1,5 +1,9 @@
 package com.zs.hobbytracker.models;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.util.Objects;
+
 /**
  * Following class represents Chess hobby
  */
@@ -14,6 +18,16 @@ public class Chess extends HobbyAttributes {
      * result of chess match i.e. won/loss/draw
      */
     private String result;
+
+    public Chess() {
+
+    }
+
+    public Chess(int userId, int hobbyId, boolean isTaskCompleted, Time startTime, Time endTime, Date dateLastPlayed, String hobbyName, int numberOfMoves, String result) {
+        super(userId, hobbyId, isTaskCompleted, startTime, endTime, dateLastPlayed, hobbyName);
+        this.numberOfMoves = numberOfMoves;
+        this.result = result;
+    }
 
     /**
      * getter method to get number of moves in a chess match
@@ -59,5 +73,16 @@ public class Chess extends HobbyAttributes {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Chess chess = (Chess) o;
+        return numberOfMoves == chess.numberOfMoves && Objects.equals(result, chess.result);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(numberOfMoves, result);
+    }
 }

@@ -39,13 +39,13 @@ public class OneDimensionArraySum {
     /**
      * @param args
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         OneDimensionArraySum oneDimensionArraySum = new OneDimensionArraySum();
         oneDimensionArraySum.inputOneD();
         int sum = oneDimensionArraySum.sumOneD();
         System.out.println("Sum is " + sum);
 
-    }
+    }*/
 
 }

@@ -1,114 +1,186 @@
 package com.zs.hobbytracker.service;
 
+import com.zs.hobbytracker.dao.ChessDao;
 import com.zs.hobbytracker.exception.ApplicationRuntimeException;
-import com.zs.hobbytracker.models.Badminton;
+import com.zs.hobbytracker.exception.InvalidInputException;
 import com.zs.hobbytracker.models.Chess;
-import com.zs.hobbytracker.utils.DatabaseConnection;
+import com.zs.hobbytracker.models.HobbyAttributes;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.SQLException;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.when;
 
-/**
- * Test for chess service
- */
+@RunWith(MockitoJUnitRunner.class)
 public class ChessServiceTest {
-
-    Connection connection;
-    ChessService chessService;
+    /**
+     * Chess Service
+     */
+    private ChessService chessService;
 
     /**
-     * Initialising connection and service
+     * Mocks the connection to the database
+     */
+    @Mock
+    private Connection connection;
+
+    /**
+     * Mocks the Chess dao
+     */
+    @Mock
+    private ChessDao chessDao;
+
+    private List<HobbyAttributes> hobbies;
+
+    private HobbyAttributes hobby1;
+    private HobbyAttributes hobby2;
+    private HobbyAttributes hobby3;
+    private HobbyAttributes hobby4;
+    private HobbyAttributes hobby5;
+
+    /**
+     * Setup
      */
     @Before
     public void setup() {
-        connection = DatabaseConnection.getConnection();
+
+        MockitoAnnotations.initMocks(this);
         chessService = new ChessService();
+        chessService = new ChessService(chessDao);
+        hobby1 = new Chess(1, 1, true, Time.valueOf("10:10:10"), Time.valueOf("11:11:11"), Date.valueOf("2021-01-03"), "chess", 4, "win");
+        hobby2 = new Chess(1, 1, true, Time.valueOf("10:10:10"), Time.valueOf("11:11:11"), Date.valueOf("2021-01-04"), "chess", 4, "win");
+        hobby3 = new Chess(1, 1, true, Time.valueOf("10:10:10"), Time.valueOf("11:11:11"), Date.valueOf("2021-01-05"), "chess", 4, "win");
+        hobby4 = new Chess(1, 1, true, Time.valueOf("10:10:10"), Time.valueOf("11:11:11"), Date.valueOf("2021-01-07"), "chess", 4, "win");
+        hobby5 = new Chess(1, 1, true, Time.valueOf("10:10:10"), Time.valueOf("11:11:11"), Date.valueOf("2021-01-08"), "chess", 4, "win");
+
+        hobbies = new ArrayList<>();
+        hobbies.add(hobby1);
+        hobbies.add(hobby2);
+        hobbies.add(hobby3);
+        hobbies.add(hobby4);
+        hobbies.add(hobby5);
+
     }
 
     /**
-     * longest streak for chess hobby when user id is present
+     * fetches the longest streak for Chess hobby of given user
      *
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
     @Test
-    public void getLongestStreakWhenUserIdIsPresent() throws ApplicationRuntimeException {
-        int longestStreak = chessService.getLongestStreak(connection, 1);
-        assertEquals(2, longestStreak);
+    public void getLongestStreakWhenIdIsPresent() throws ApplicationRuntimeException {
+        when(chessDao.getChessDataUserWise(connection, 1)).thenReturn(hobbies);
+        int answer = chessService.getLongestStreak(connection, 1);
+        assertEquals(3, answer);
     }
 
     /**
-     * longest streak for chess hobby when user id is absent
+     * Checks for longest streak to be valid if user is absent
      *
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
     @Test
-    public void getLongestStreakWhenUserIdIsAbsent() throws ApplicationRuntimeException {
-        int longestStreak = chessService.getLongestStreak(connection, 5);
-        assertEquals(0, longestStreak);
+    public void getLongestStreakWhenIdIsAbsent() throws ApplicationRuntimeException {
+        when(chessDao.getChessDataUserWise(connection, 0)).thenReturn(null);
+        int answer = chessService.getLongestStreak(connection, 0);
+        assertEquals(0, answer);
     }
 
     /**
-     * latest streak for chess hobby when user id is present
+     * fetches the latest streak for Chess hobby of given user
      *
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
     @Test
-    public void getLatestStreakWhenUserIdIsPresent() throws ApplicationRuntimeException {
-        int longestStreak = chessService.getLatestStreak(connection, 1);
-        assertEquals(1, longestStreak);
+    public void getLatestStreakWhenIdIsPresent() throws ApplicationRuntimeException {
+        when(chessDao.getChessDataUserWise(connection, 1)).thenReturn(hobbies);
+        int answer = chessService.getLatestStreak(connection, 1);
+        assertEquals(2, answer);
     }
 
     /**
-     * longest streak for chess hobby when user id is absent
+     * Checks for latest streak to be valid if user is absent
      *
-     * @throws SQLException
+     * @throws ApplicationRuntimeException
      */
     @Test
-    public void getLatestStreakWhenUserIdIsAbsent() throws ApplicationRuntimeException {
-        int longestStreak = chessService.getLatestStreak(connection, 5);
-        assertEquals(0, longestStreak);
+    public void getLatestStreakWhenIdIsAbsent() throws ApplicationRuntimeException {
+        when(chessDao.getChessDataUserWise(connection, 0)).thenReturn(null);
+        int answer = chessService.getLatestStreak(connection, 0);
+        assertEquals(0, answer);
     }
 
     /**
-     * Last tick for chess hobby when user id is present
+     * Last tick when user id is present
+     *
+     * @throws ApplicationRuntimeException
      */
     @Test
-    public void lastTickWhenUserIdIsPresent() throws ApplicationRuntimeException {
+    public void getLastTickWhenIdIsPresent() throws ApplicationRuntimeException {
+        when(chessDao.lastTick(connection, 1)).thenReturn((Chess) hobby1);
         Chess chess = chessService.lastTick(connection, 1);
-        assertEquals(chess instanceof Chess, true);
+        assertEquals(hobby1, chess);
     }
 
     /**
-     * Last tick for chess hobby when user id is Absent
+     * Last tick when user id is absent
+     *
+     * @throws ApplicationRuntimeException
      */
     @Test
-    public void lastTickWhenUserIdIsAbsent() throws ApplicationRuntimeException {
-        Chess chess = chessService.lastTick(connection, 10);
-        assertEquals(null, chess);
+    @Ignore
+    public void getLastTickWhenIdIsAbsent() throws ApplicationRuntimeException {
+        when(chessDao.getChessDataUserWise(connection, 0)).thenReturn(null);
+        Chess chess = chessService.lastTick(connection, 0);
+        assertNull(chess);
     }
 
+
     /**
-     * Last tick for badminton hobby when user id and date are present in database
+     * User Details when user id and date are present
+     *
+     * @throws ApplicationRuntimeException
      */
     @Test
     public void detailsForDateWhenUserIdAndDateArePresent() throws ApplicationRuntimeException {
-        Chess chess = chessService.detailsForDate(connection, 1, Date.valueOf("2021-01-26"));
-        assertEquals(chess instanceof Chess, true);
+        when(chessDao.detailsForDate(connection, 1, Date.valueOf("2021-01-24"))).thenReturn((Chess) hobby1);
+        Chess chess = chessService.detailsForDate(connection, 1, Date.valueOf("2021-01-24"));
+        assertEquals(hobby1, chess);
     }
 
     /**
-     * Last tick for chess hobby when user id or date is Absent in database
+     * User Details when user id and date are absent
+     *
+     * @throws ApplicationRuntimeException
      */
     @Test
-    public void detailsForDateWhenUserIdOrDateAreAbsent() throws ApplicationRuntimeException {
-        Chess chess = chessService.detailsForDate(connection, 10, Date.valueOf("2021-01-25"));
-        assertEquals(null, chess);
+    public void detailsForDateWhenUserIdAndDateAreAbsent() throws ApplicationRuntimeException {
+        when(chessDao.detailsForDate(connection, 0, Date.valueOf("2021-01-24"))).thenReturn(null);
+        Chess chess = chessService.detailsForDate(connection, 0, Date.valueOf("2021-01-24"));
+        assertNull(chess);
     }
 
+    /**
+     * Test for inserting tick of chess hobby
+     *
+     * @throws InvalidInputException
+     * @throws ApplicationRuntimeException
+     */
+    @Test
+    public void tickTest() throws InvalidInputException, ApplicationRuntimeException {
+        chessService.tick(connection, hobby2);
+    }
 
 }

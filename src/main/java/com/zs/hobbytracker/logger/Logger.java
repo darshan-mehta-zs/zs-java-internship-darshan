@@ -10,15 +10,24 @@ import java.util.logging.LogManager;
  * Logger for logging purpose
  */
 public class Logger {
-    /**
-     * @return logger for the purpose of logging
-     */
-    public static java.util.logging.Logger getLogger() {
+
+    static java.util.logging.Logger logger;
+
+    public static void initialiseLogger() {
         try {
             LogManager.getLogManager().readConfiguration(new FileInputStream("src/main/resources/loggingHobby.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return java.util.logging.Logger.getLogger(Hobby.class.getName());
+    }
+
+    /**
+     * @return logger for the purpose of logging
+     */
+    public static java.util.logging.Logger getLogger() {
+        if (logger != null)
+            return logger;
+        logger = java.util.logging.Logger.getLogger(Logger.class.getName());
+        return logger;
     }
 }

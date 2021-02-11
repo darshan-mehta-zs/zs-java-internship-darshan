@@ -41,13 +41,13 @@ public class TwoDimensionArraySum {
     /**
      * @param args
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         TwoDimensionArraySum twoDimensionArraySum = new TwoDimensionArraySum();
         twoDimensionArraySum.inputTwoD();
         int sum = twoDimensionArraySum.sumTwoD();
         System.out.println("Sum is " + sum);
 
-    }
+    }*/
 
 }

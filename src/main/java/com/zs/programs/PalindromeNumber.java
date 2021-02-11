@@ -38,7 +38,7 @@ public class PalindromeNumber {
     /**
      * @param args
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter number");
@@ -50,6 +50,6 @@ public class PalindromeNumber {
         else
             System.out.println(number + " is not palindrome");
 
-    }
+    }*/
 
 }
